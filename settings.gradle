@@ -1,0 +1,9 @@
+include ':feature:core'
+include ':feature:search'
+include ':feature:movie'
+include ':feature:tv'
+include ':app'
+include ':data'
+include ':domain'
+include ':testData'
+rootProject.name = "TheMovieDB"
