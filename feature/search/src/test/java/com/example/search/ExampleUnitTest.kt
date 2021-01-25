@@ -1,4 +1,4 @@
-package com.example.followed
+package com.example.search
 
 import junit.framework.Assert.assertEquals
 import org.junit.Test

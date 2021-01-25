@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.search.adapter.SearchResultsRecyclerViewAdapter
 import com.example.search.databinding.FragmentSearchBinding
+import timber.log.Timber
 import javax.inject.Inject
 
 class SearchFragment @Inject constructor() : Fragment() {
@@ -25,6 +28,9 @@ class SearchFragment @Inject constructor() : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
+            recyclerView.setHasFixedSize(true)
+            recyclerView.adapter?.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
         lifecycle.addObserver(searchViewModel)
         observe()
@@ -36,5 +42,9 @@ class SearchFragment @Inject constructor() : Fragment() {
     }
 
     private fun observe() {
+        searchViewModel.list.observe(viewLifecycleOwner) {
+            Timber.d("check_observe_data:$it")
+            binding.recyclerView.adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
+        }
     }
 }

@@ -3,7 +3,10 @@ package com.example.search
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
+import com.kotlin.project.data.model.ResultsData
 import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.model.failureResponse
 import com.kotlin.project.domain.usecase.GetMovieListUseCase
@@ -17,7 +20,9 @@ class SearchViewModel @Inject constructor(
     private val getMovieListUseCase: GetMovieListUseCase
 ) : AndroidViewModel(application), LifecycleObserver {
 
-    // event
+    // liveData
+    private val _list = MediatorLiveData<List<ResultsData>>()
+    val list: LiveData<List<ResultsData>> = _list
 
     init {
         fetchData()
@@ -31,7 +36,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (val r = getMovieListUseCase.getMovieList(BuildConfig.APIKEY, "Star Wars")) {
                 is TheMovieDBResult.Success -> {
-                    Timber.d("check_data:${r.data.results}")
+                    _list.postValue(r.data.results)
                 }
                 else -> {
                     r.failureResponse?.let {
