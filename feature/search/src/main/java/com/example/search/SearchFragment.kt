@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.search.databinding.FragmentSearchBinding
 import javax.inject.Inject
 
 class SearchFragment @Inject constructor() : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val searchViewModel: SearchViewModel by viewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,6 +26,7 @@ class SearchFragment @Inject constructor() : Fragment() {
         binding = FragmentSearchBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
         }
+        lifecycle.addObserver(searchViewModel)
         observe()
         return binding.root
     }
