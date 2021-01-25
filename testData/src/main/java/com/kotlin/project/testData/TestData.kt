@@ -4,9 +4,11 @@ import com.kotlin.project.data.model.ResultsData
 import com.kotlin.project.data.model.SearchResponse
 
 object TestData {
+
     const val resultsSize = 20
     const val totalPages = 8
     const val totalResults = 147
+    const val errorMessage = "TestError"
 
     private fun resultsData(): ArrayList<ResultsData> {
         val arrayList: ArrayList<ResultsData> = arrayListOf()

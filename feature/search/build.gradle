@@ -20,9 +20,17 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+            debuggable true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "APIKEY", "\"5a8b983d0a32c33b16d6db1c658e7e1d\""
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "APIKEY", "\"5a8b983d0a32c33b16d6db1c658e7e1d\""
         }
     }
     compileOptions {
