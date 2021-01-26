@@ -3,10 +3,12 @@ package com.example.search.adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import timber.log.Timber
 
 open class CustomScrollListener(
     private val mLinearLayoutManager: LinearLayoutManager,
-    private var isRefresh: Boolean
+    private var isRefresh: Boolean,
+    private var currentPage: Int
 ) :
     OnScrollListener() {
     var firstVisibleItem = 0
@@ -14,7 +16,6 @@ open class CustomScrollListener(
     var totalItemCount: Int = 0
     private var previousTotal = 0
     private var loading = true
-    private var currentPage = 1
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         visibleItemCount = recyclerView.childCount
@@ -33,11 +34,13 @@ open class CustomScrollListener(
                 previousTotal = totalItemCount
             }
         }
+
         if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + visibleItemCount) {
             currentPage++
             onLoadMore(currentPage)
             loading = true
         }
+        Timber.d("check_data:$currentPage")
     }
 
     open fun onLoadMore(currentPage: Int) {}

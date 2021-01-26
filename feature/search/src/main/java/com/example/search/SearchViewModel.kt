@@ -28,6 +28,7 @@ class SearchViewModel @Inject constructor(
 
     private val context = getApplication<Application>().applicationContext
 
+    var currentPage = 1
     var totalPage = 1
 
     // status
@@ -46,10 +47,12 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onRefresh() {
+        currentPage = 1
         fetchData(isPullToRefresh = true)
     }
 
     fun onAddPage(addPage: Int) {
+        currentPage = addPage
         fetchData(addPage = addPage)
     }
 
@@ -71,7 +74,6 @@ class SearchViewModel @Inject constructor(
                     if (!isPullToRefresh && addPage > 1) {
                         val addList = _list.value as MutableList<ResultsData>
                         addList.addAll(r.data.results)
-                        Timber.d("check_data1:$addPage")
                         _list.postValue(addList)
                     } else {
                         _list.postValue(r.data.results)

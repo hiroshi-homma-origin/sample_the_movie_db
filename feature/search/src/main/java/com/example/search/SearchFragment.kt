@@ -61,7 +61,9 @@ class SearchFragment @Inject constructor() : Fragment() {
     private fun scrollCheck(isRefresh: Boolean = false) {
         binding.recyclerView.clearOnScrollListeners()
         binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
-            binding.recyclerView.layoutManager as LinearLayoutManager, isRefresh
+            binding.recyclerView.layoutManager as LinearLayoutManager,
+            isRefresh,
+            searchViewModel.currentPage
         ) {
             override fun onLoadMore(currentPage: Int) {
                 if (currentPage <= searchViewModel.totalPage) {
