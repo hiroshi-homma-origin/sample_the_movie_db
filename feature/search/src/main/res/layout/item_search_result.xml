@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.search.BuildConfig"/>
+
+        <import type="com.example.search.BuildConfig" />
 
         <variable
             name="results"
@@ -13,16 +14,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/main_image"
             imageFromUrl="@{BuildConfig.IMGURL + results.posterPath}"
             android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_height="135dp"
             android:layout_margin="10dp"
             android:contentDescription="@string/movieImage"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -50,9 +54,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
-            android:text="@{results.overview}"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="2"
+            android:text="@{results.overview}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/main_image"
@@ -75,6 +79,7 @@
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintVertical_bias="1.0"
             tools:text="2021-01-01" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"

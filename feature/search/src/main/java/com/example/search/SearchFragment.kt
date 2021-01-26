@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.search.adapter.CustomScrollListener
 import com.example.search.adapter.SearchResultsRecyclerViewAdapter
 import com.example.search.databinding.FragmentSearchBinding
 import timber.log.Timber
@@ -27,10 +29,8 @@ class SearchFragment @Inject constructor() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false).apply {
+            viewModel = searchViewModel
             lifecycleOwner = viewLifecycleOwner
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter?.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
         lifecycle.addObserver(searchViewModel)
         observe()
@@ -39,12 +39,35 @@ class SearchFragment @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.apply {
+            setHasFixedSize(true)
+            adapter?.stateRestorationPolicy =
+                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+            adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
+            scrollCheck()
+        }
+        binding.swipeRefresh.setOnRefreshListener {
+            scrollCheck()
+            searchViewModel.onRefresh()
+        }
     }
 
     private fun observe() {
         searchViewModel.list.observe(viewLifecycleOwner) {
-            Timber.d("check_observe_data:$it")
-            binding.recyclerView.adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
+            binding.recyclerView.adapter?.notifyItemInserted(it.size + 1)
         }
+    }
+
+    private fun scrollCheck() {
+        binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
+            binding.recyclerView.layoutManager as LinearLayoutManager
+        ) {
+                override fun onLoadMore(currentPage: Int) {
+                    Timber.d("check_data:$currentPage")
+                    if (searchViewModel.currentPage < searchViewModel.totalPage) {
+                        searchViewModel.onAddPage(currentPage)
+                    }
+                }
+            })
     }
 }

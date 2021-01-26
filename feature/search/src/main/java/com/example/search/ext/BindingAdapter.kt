@@ -4,12 +4,14 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.search.R
+import com.kotlin.project.data.model.TheMovieDBStatus
 
 @BindingAdapter("visibleGone")
 fun visibleGone(view: View, show: Boolean) {
@@ -19,6 +21,12 @@ fun visibleGone(view: View, show: Boolean) {
 @BindingAdapter("visibleInvisible")
 fun visibleInvisible(view: View, show: Boolean) {
     view.visibility = if (show) View.VISIBLE else View.VISIBLE
+}
+
+@BindingAdapter("isRefresh")
+fun SwipeRefreshLayout.isRefresh(status: TheMovieDBStatus?) {
+    status ?: return
+    isRefreshing = status == TheMovieDBStatus.ReLoading
 }
 
 @BindingAdapter("imageFromUrl", requireAll = false)

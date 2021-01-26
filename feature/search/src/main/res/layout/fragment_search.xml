@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.kotlin.project.data.model.TheMovieDBStatus" />
+
+        <variable
+            name="viewModel"
+            type="com.example.search.SearchViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -10,13 +19,13 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/grey">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/grey"
                 android:minHeight="?attr/actionBarSize"
                 android:textColor="@color/black"
                 app:layout_scrollFlags="scroll|enterAlways"
@@ -29,8 +38,18 @@
                     android:layout_gravity="center"
                     android:text="@string/title_search"
                     android:textSize="@dimen/text_size_x2_large"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/title_search" />
             </androidx.appcompat.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/result_page_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_8dp"
+                android:text="@{viewModel.currentResultText}"
+                android:textSize="@dimen/text_size_x_large"
+                tools:text="@string/title_search" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -38,18 +57,18 @@
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:isRefresh="@{viewModel.status}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-<!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-<!--            app:spanCount="2"-->
+            <!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+            <!--            app:spanCount="2"-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scrollbarSize="5dp"
+                android:scrollbarThumbVertical="@android:color/darker_gray"
+                android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
