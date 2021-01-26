@@ -63,11 +63,11 @@ class SearchFragment @Inject constructor() : Fragment() {
         binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
             binding.recyclerView.layoutManager as LinearLayoutManager, isRefresh
         ) {
-                override fun onLoadMore(currentPage: Int) {
-                    if (currentPage <= searchViewModel.totalPage) {
-                        searchViewModel.onAddPage(currentPage)
-                    }
+            override fun onLoadMore(currentPage: Int) {
+                if (currentPage <= searchViewModel.totalPage) {
+                    searchViewModel.onAddPage(currentPage)
                 }
-            })
+            }
+        })
     }
 }
