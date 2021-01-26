@@ -4,7 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 
-abstract class CustomScrollListener(private val mLinearLayoutManager: LinearLayoutManager) :
+open class CustomScrollListener(
+    private val mLinearLayoutManager: LinearLayoutManager,
+    private var isRefresh: Boolean
+) :
     OnScrollListener() {
     var firstVisibleItem = 0
     var visibleItemCount: Int = 0
@@ -17,6 +20,12 @@ abstract class CustomScrollListener(private val mLinearLayoutManager: LinearLayo
         visibleItemCount = recyclerView.childCount
         totalItemCount = mLinearLayoutManager.itemCount
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition()
+
+        if (isRefresh) {
+            previousTotal = 0
+            currentPage = 1
+            isRefresh = false
+        }
 
         if (loading) {
             if (totalItemCount > previousTotal) {
@@ -31,5 +40,5 @@ abstract class CustomScrollListener(private val mLinearLayoutManager: LinearLayo
         }
     }
 
-    abstract fun onLoadMore(currentPage: Int)
+    open fun onLoadMore(currentPage: Int) {}
 }

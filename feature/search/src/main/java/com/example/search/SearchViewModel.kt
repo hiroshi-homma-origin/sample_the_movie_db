@@ -28,7 +28,6 @@ class SearchViewModel @Inject constructor(
 
     private val context = getApplication<Application>().applicationContext
 
-    var currentPage = 1
     var totalPage = 1
 
     // status
@@ -58,20 +57,21 @@ class SearchViewModel @Inject constructor(
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
             when (
-                val r =
-                    getMovieListUseCase.getMovieList(BuildConfig.APIKEY, "Star Wars", addPage)
+                val r = getMovieListUseCase.getMovieList(
+                    BuildConfig.APIKEY, "Star Wars", addPage
+                )
             ) {
                 is TheMovieDBResult.Success -> {
-                    currentPage = addPage
                     totalPage = r.data.totalPages
 
                     _currentResultText.postValue(
                         context.getString(R.string.title_search) +
                             "GetData (" + addPage + " / " + r.data.totalPages + ")"
                     )
-                    if (!isPullToRefresh && currentPage > 1) {
+                    if (!isPullToRefresh && addPage > 1) {
                         val addList = _list.value as MutableList<ResultsData>
                         addList.addAll(r.data.results)
+                        Timber.d("check_data1:$addPage")
                         _list.postValue(addList)
                     } else {
                         _list.postValue(r.data.results)

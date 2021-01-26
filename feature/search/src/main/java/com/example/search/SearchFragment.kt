@@ -46,6 +46,8 @@ class SearchFragment @Inject constructor() : Fragment() {
             scrollCheck()
         }
         binding.swipeRefresh.setOnRefreshListener {
+            binding.recyclerView.adapter?.notifyDataSetChanged()
+            scrollCheck(true)
             searchViewModel.onRefresh()
         }
     }
@@ -56,12 +58,13 @@ class SearchFragment @Inject constructor() : Fragment() {
         }
     }
 
-    private fun scrollCheck() {
+    private fun scrollCheck(isRefresh: Boolean = false) {
+        binding.recyclerView.clearOnScrollListeners()
         binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
-            binding.recyclerView.layoutManager as LinearLayoutManager
+            binding.recyclerView.layoutManager as LinearLayoutManager, isRefresh
         ) {
                 override fun onLoadMore(currentPage: Int) {
-                    if (searchViewModel.currentPage < searchViewModel.totalPage) {
+                    if (currentPage <= searchViewModel.totalPage) {
                         searchViewModel.onAddPage(currentPage)
                     }
                 }
