@@ -28,17 +28,17 @@ class SearchViewModel @Inject constructor(
 
     private val context = getApplication<Application>().applicationContext
 
-    var currentPage = 1
-    var totalPage = 1
-
     // status
     private val _status = MutableLiveData<TheMovieDBStatus>()
     val status: LiveData<TheMovieDBStatus> = _status
 
+    // data
+    var currentPage = 1
+    var totalPage = 1
+
     private val _currentResultText = MutableLiveData<String>()
     val currentResultText: LiveData<String> = _currentResultText
 
-    // data
     private val _list = MediatorLiveData<List<ResultsData>>()
     val list: LiveData<List<ResultsData>> = _list
 
@@ -46,12 +46,12 @@ class SearchViewModel @Inject constructor(
         fetchData()
     }
 
-    fun onRefresh() {
+    fun refresh() {
         currentPage = 1
         fetchData(isPullToRefresh = true)
     }
 
-    fun onAddPage(addPage: Int) {
+    fun addPage(addPage: Int) {
         currentPage = addPage
         fetchData(addPage = addPage)
     }
@@ -59,24 +59,22 @@ class SearchViewModel @Inject constructor(
     private fun fetchData(isPullToRefresh: Boolean = false, addPage: Int = 1) {
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val r = getMovieListUseCase.getMovieList(
-                    BuildConfig.APIKEY, "Star Wars", addPage
-                )
-            ) {
+            when (val r = getMovieListUseCase.getMovieList(
+                BuildConfig.APIKEY, "Star Wars", addPage
+            )) {
                 is TheMovieDBResult.Success -> {
                     totalPage = r.data.totalPages
-
                     _currentResultText.postValue(
                         context.getString(R.string.title_search) +
                             "GetData (" + addPage + " / " + r.data.totalPages + ")"
                     )
-                    if (!isPullToRefresh && addPage > 1) {
-                        val addList = _list.value as MutableList<ResultsData>
-                        addList.addAll(r.data.results)
-                        _list.postValue(addList)
-                    } else {
-                        _list.postValue(r.data.results)
+                    when {
+                        isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
+                        else -> {
+                            val addList = _list.value as MutableList<ResultsData>
+                            addList.addAll(r.data.results)
+                            _list.postValue(addList)
+                        }
                     }
                     _status.postValue(Success)
                 }

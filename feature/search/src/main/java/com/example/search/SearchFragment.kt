@@ -40,15 +40,13 @@ class SearchFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.apply {
             setHasFixedSize(true)
-            adapter?.stateRestorationPolicy =
-                RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
             adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
-            scrollCheck()
+            setCustomScrollListener()
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.recyclerView.adapter?.notifyDataSetChanged()
-            scrollCheck(true)
-            searchViewModel.onRefresh()
+            setCustomScrollListener(true)
+            searchViewModel.refresh()
         }
     }
 
@@ -58,7 +56,7 @@ class SearchFragment @Inject constructor() : Fragment() {
         }
     }
 
-    private fun scrollCheck(isRefresh: Boolean = false) {
+    private fun setCustomScrollListener(isRefresh: Boolean = false) {
         binding.recyclerView.clearOnScrollListeners()
         binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
             binding.recyclerView.layoutManager as LinearLayoutManager,
@@ -67,7 +65,7 @@ class SearchFragment @Inject constructor() : Fragment() {
         ) {
             override fun onLoadMore(currentPage: Int) {
                 if (currentPage <= searchViewModel.totalPage) {
-                    searchViewModel.onAddPage(currentPage)
+                    searchViewModel.addPage(currentPage)
                 }
             }
         })

@@ -19,9 +19,7 @@ class SearchResultsRecyclerViewAdapter(
             parent,
             false
         )
-        return SearchResultsHolder(
-            binding
-        )
+        return SearchResultsHolder(binding)
     }
 
     override fun getItemCount(): Int {

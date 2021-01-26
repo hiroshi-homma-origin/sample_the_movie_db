@@ -9,8 +9,7 @@ open class CustomScrollListener(
     private val mLinearLayoutManager: LinearLayoutManager,
     private var isRefresh: Boolean,
     private var currentPage: Int
-) :
-    OnScrollListener() {
+) : OnScrollListener() {
     var firstVisibleItem = 0
     var visibleItemCount: Int = 0
     var totalItemCount: Int = 0
