@@ -8,7 +8,7 @@
     <show_hide_fragment
         android:id="@+id/navigation_search"
         android:name="com.example.search.SearchFragment"
-        android:label="@string/title_movie"/>
+        android:label="@string/title_search"/>
 
     <show_hide_fragment
         android:id="@+id/navigation_movie"
@@ -18,6 +18,6 @@
     <show_hide_fragment
         android:id="@+id/navigation_tv"
         android:name="com.example.tv.TvFragment"
-        android:label="@string/title_movie"/>
+        android:label="@string/title_tv"/>
 
 </navigation>
