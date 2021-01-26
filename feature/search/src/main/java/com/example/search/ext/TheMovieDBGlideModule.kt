@@ -18,11 +18,10 @@ class TheMovieDBGlideModule : AppGlideModule() {
         builder.setDefaultTransitionOptions(
             Drawable::class.java,
             DrawableTransitionOptions.withCrossFade()
+        ).setDefaultTransitionOptions(
+            Bitmap::class.java,
+            BitmapTransitionOptions.withCrossFade()
         )
-            .setDefaultTransitionOptions(
-                Bitmap::class.java,
-                BitmapTransitionOptions.withCrossFade()
-            )
     }
 
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {

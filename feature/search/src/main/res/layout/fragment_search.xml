@@ -60,8 +60,6 @@
             app:isRefresh="@{viewModel.status}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-            <!--            app:spanCount="2"-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestListener
@@ -34,35 +35,32 @@ fun bindImageFromUrlWithPlaceholder(
     view: ImageView,
     imageFromUrl: String
 ) {
-    if (imageFromUrl.isEmpty()) {
-        view.setImageResource(R.color.grey)
-    } else {
-        GlideApp.with(view.context)
-            .load(imageFromUrl)
-            .downsample(DownsampleStrategy.CENTER_INSIDE)
-            .dontTransform()
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    p0: GlideException?,
-                    p1: Any?,
-                    target: Target<Drawable>?,
-                    p3: Boolean
-                ): Boolean {
-                    return false
-                }
+    GlideApp.with(view.context)
+        .load(imageFromUrl)
+        .downsample(DownsampleStrategy.CENTER_INSIDE)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .dontTransform()
+        .listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                p0: GlideException?,
+                p1: Any?,
+                target: Target<Drawable>?,
+                p3: Boolean
+            ): Boolean {
+                return false
+            }
 
-                override fun onResourceReady(
-                    p0: Drawable?,
-                    p1: Any?,
-                    target: Target<Drawable>?,
-                    p3: DataSource?,
-                    p4: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
-            .placeholder(R.color.grey)
-            .fallback(R.color.grey)
-            .into(view)
-    }
+            override fun onResourceReady(
+                p0: Drawable?,
+                p1: Any?,
+                target: Target<Drawable>?,
+                p3: DataSource?,
+                p4: Boolean
+            ): Boolean {
+                return false
+            }
+        })
+        .placeholder(R.color.grey)
+        .fallback(R.color.grey)
+        .into(view)
 }

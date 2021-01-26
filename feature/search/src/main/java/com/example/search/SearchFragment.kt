@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.search.adapter.CustomScrollListener
 import com.example.search.adapter.SearchResultsRecyclerViewAdapter
 import com.example.search.databinding.FragmentSearchBinding
-import timber.log.Timber
 import javax.inject.Inject
 
 class SearchFragment @Inject constructor() : Fragment() {
@@ -47,7 +46,6 @@ class SearchFragment @Inject constructor() : Fragment() {
             scrollCheck()
         }
         binding.swipeRefresh.setOnRefreshListener {
-            scrollCheck()
             searchViewModel.onRefresh()
         }
     }
@@ -63,7 +61,6 @@ class SearchFragment @Inject constructor() : Fragment() {
             binding.recyclerView.layoutManager as LinearLayoutManager
         ) {
                 override fun onLoadMore(currentPage: Int) {
-                    Timber.d("check_data:$currentPage")
                     if (searchViewModel.currentPage < searchViewModel.totalPage) {
                         searchViewModel.onAddPage(currentPage)
                     }
