@@ -2,6 +2,7 @@ package com.example.core.ui
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.core.R
@@ -19,5 +20,23 @@ class CoreActivity : DaggerAppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.navView.setupWithNavController(navController)
+        setBottomNavigationListener(navController)
+    }
+
+    private fun setBottomNavigationListener(navController: NavController) {
+        binding.navView.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.navigation_search -> {
+                    navController.navigate(R.id.search_nav_graph)
+                }
+                R.id.navigation_movie -> {
+                    navController.navigate(R.id.movie_nav_graph)
+                }
+                R.id.navigation_tv -> {
+                    navController.navigate(R.id.tv_nav_graph)
+                }
+            }
+            true
+        }
     }
 }

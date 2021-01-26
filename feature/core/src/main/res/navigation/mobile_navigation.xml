@@ -3,21 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_search">
+    app:startDestination="@+id/search_nav_graph">
 
-    <show_hide_fragment
-        android:id="@+id/navigation_search"
-        android:name="com.example.search.SearchFragment"
-        android:label="@string/title_search"/>
+    <include app:graph="@navigation/search_nav_graph" />
 
-    <show_hide_fragment
-        android:id="@+id/navigation_movie"
-        android:name="com.example.movie.MovieFragment"
-        android:label="@string/title_movie"/>
+    <include app:graph="@navigation/movie_nav_graph" />
 
-    <show_hide_fragment
-        android:id="@+id/navigation_tv"
-        android:name="com.example.tv.TvFragment"
-        android:label="@string/title_tv"/>
+    <include app:graph="@navigation/tv_nav_graph" />
 
 </navigation>

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.search.adapter.CustomScrollListener
 import com.example.search.adapter.SearchResultsRecyclerViewAdapter
 import com.example.search.databinding.FragmentSearchBinding

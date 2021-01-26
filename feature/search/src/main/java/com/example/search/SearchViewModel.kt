@@ -59,9 +59,11 @@ class SearchViewModel @Inject constructor(
     private fun fetchData(isPullToRefresh: Boolean = false, addPage: Int = 1) {
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            when (val r = getMovieListUseCase.getMovieList(
-                BuildConfig.APIKEY, "Star Wars", addPage
-            )) {
+            when (
+                val r = getMovieListUseCase.getMovieList(
+                    BuildConfig.APIKEY, "Star Wars", addPage
+                )
+            ) {
                 is TheMovieDBResult.Success -> {
                     totalPage = r.data.totalPages
                     _currentResultText.postValue(
