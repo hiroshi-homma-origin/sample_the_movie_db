@@ -62,4 +62,33 @@ class SearchListUseCaseTest {
             assert(it.message.equals(TestData.errorMessage))
         }
     }
+
+    @Test
+    fun execute_Tv_Success() = testDispatcher.runBlockingTest {
+        // arrange
+        val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
+        val word = "鬼滅"
+        coEvery { searchListUseCase.searchTvList(any(), any()) } returns
+            TheMovieDBResult.Success(TestData.testSearchResponseForTv)
+        // act
+        searchListUseCase.searchTvList(ak, word).successResponse?.let {
+            println("check_data:${it.results.size}")
+            assert(it.results.size == TestData.resultsSizeForTv)
+        }
+    }
+
+    @Test
+    fun execute_Tv_Error() = testDispatcher.runBlockingTest {
+        // arrange
+        val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
+        val word = "鬼滅"
+        val throwable = Throwable(TestData.errorMessage)
+        coEvery { searchListUseCase.searchTvList(any(), any()) } returns
+            TheMovieDBResult.Failure(throwable)
+        // act
+        searchListUseCase.searchTvList(ak, word).failureResponse?.let {
+            println("check_data:${it.message}")
+            assert(it.message.equals(TestData.errorMessage))
+        }
+    }
 }

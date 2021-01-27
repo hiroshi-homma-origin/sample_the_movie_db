@@ -5,9 +5,11 @@ import com.kotlin.project.data.model.Genres
 import com.kotlin.project.data.model.ProductionCompanies
 import com.kotlin.project.data.model.ProductionCountries
 import com.kotlin.project.data.model.SearchResultsData
+import com.kotlin.project.data.model.SearchResultsTvData
 import com.kotlin.project.data.model.SpokenLanguages
 import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.data.model.response.SearchResponse
+import com.kotlin.project.data.model.response.SearchTvResponse
 
 object TestData {
 
@@ -112,5 +114,27 @@ object TestData {
 
     val testSearchResponse = SearchResponse(
         page = 1, results = searchList(), totalPages = 8, totalResults = 147
+    )
+
+    val testSearchResponseForTv = SearchTvResponse(
+        page = 1,
+        results = arrayListOf(
+            SearchResultsTvData(
+                backdropPath = "/nTvM4mhqNlHIvUkI1gVnW6XP7GG.jpg",
+                firstAirDate = "2019-04-06",
+                genreIds = arrayListOf(16, 18, 10765, 10759),
+                id = 0,
+                name = "鬼滅の刃",
+                originCountry = arrayListOf("JP"),
+                originalLanguage = "ja",
+                originalName = "鬼滅の刃",
+                overview = "時は大正、日本。炭を売る心優しき少年・炭治郎は、ある日鬼に家族を皆殺しにされてしまう。さらに唯一生き残った妹の禰豆子は鬼に変貌してしまった。絶望的な現実に打ちのめされる炭治郎だったが妹を人間に戻し、家族を殺した鬼を討つため、“鬼狩り”の道を進む決意をする。人と鬼とが織りなす哀しき兄妹の物語が、今、始まる――！",
+                popularity = 35.853f,
+                posterPath = "/7Uj6vqmznWQ3w3hpQ1eIY9mMyMw.jpg",
+                voteAverage = 8.9f,
+                voteCount = 1835
+            )
+        ),
+        totalPages = 1, totalResults = 1
     )
 }

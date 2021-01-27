@@ -3,6 +3,7 @@ package com.kotlin.project.data.repository
 import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.api.TheMovieDBApi
 import com.kotlin.project.data.model.response.SearchResponse
+import com.kotlin.project.data.model.response.SearchTvResponse
 import javax.inject.Inject
 
 interface SearchListRepository {
@@ -18,7 +19,7 @@ interface SearchListRepository {
         searchWord: String,
         page: Int? = 1,
         language: String? = BuildConfig.LANGUAGE
-    ): SearchResponse
+    ): SearchTvResponse
 }
 
 internal class SearchListRepositoryImpl @Inject constructor(
@@ -37,5 +38,5 @@ internal class SearchListRepositoryImpl @Inject constructor(
         searchWord: String,
         page: Int?,
         language: String?
-    ): SearchResponse = theMovieDBApi.searchTvList(apiKey, searchWord, page, language)
+    ): SearchTvResponse = theMovieDBApi.searchTvList(apiKey, searchWord, page, language)
 }
