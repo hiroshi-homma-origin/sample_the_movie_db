@@ -9,7 +9,7 @@ import com.kotlin.project.data.entities.ResultTvData
 @Dao
 interface ResultTvDataDao {
     @Query("SELECT * FROM resultTvData")
-    fun getCache(): ResultTvData
+    fun getTv(): ResultTvData
 
     @Query("DELETE FROM resultTvData")
     fun deleteAll()

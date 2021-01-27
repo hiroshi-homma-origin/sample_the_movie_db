@@ -9,7 +9,7 @@ import com.kotlin.project.data.entities.ResultMovieData
 @Dao
 interface ResultMovieDataDao {
     @Query("SELECT * FROM resultMovieData")
-    fun getCache(): ResultMovieData
+    fun getMovie(): ResultMovieData
 
     @Query("DELETE FROM resultMovieData")
     fun deleteAll()
