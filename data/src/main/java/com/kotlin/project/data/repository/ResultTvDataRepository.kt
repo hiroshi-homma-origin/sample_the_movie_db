@@ -5,6 +5,7 @@ import com.kotlin.project.data.entities.ResultTvData
 import javax.inject.Inject
 
 interface ResultTvDataRepository {
+    suspend fun get20Data(): ResultTvData
     suspend fun getTv(): ResultTvData
     suspend fun deleteAll()
     suspend fun insert(resultTvData: ResultTvData)
@@ -14,6 +15,8 @@ interface ResultTvDataRepository {
 class ResultTvDataRepositoryImpl @Inject constructor(
     private val dao: ResultTvDataDao
 ) : ResultTvDataRepository {
+
+    override suspend fun get20Data(): ResultTvData = dao.get20Data()
 
     override suspend fun getTv(): ResultTvData = dao.getTv()
 
