@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="detailData"
+            type="com.kotlin.project.data.model.response.DetailResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background1">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:minHeight="?attr/actionBarSize"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/main_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:popupTheme="@style/Base.Widget.AppCompat.PopupMenu">
+
+            <TextView
+                android:id="@+id/screen_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{detailData.title}"
+                android:textSize="@dimen/text_size_x_large"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="@string/title_search_detail" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/main_image"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:layout_margin="@dimen/margin_8dp"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/movie_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintVertical_bias="0.0"
+            tools:srcCompat="@color/grey1" />
+
+        <TextView
+            android:id="@+id/movie_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8dp"
+            android:text="@{detailData.title}"
+            app:layout_constraintBottom_toTopOf="@id/description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/main_image"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/testTitle" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8dp"
+            android:ellipsize="end"
+            android:text="@{detailData.overview}"
+            android:textSize="@dimen/text_size_small"
+            app:layout_constraintBottom_toTopOf="@id/bookmark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/main_image"
+            app:layout_constraintTop_toBottomOf="@id/movie_name"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="@string/testDescription"/>
+
+        <ImageView
+            android:id="@+id/bookmark"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="@dimen/margin_12dp"
+            android:src="@drawable/ic_baseline_check_circle_outline_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

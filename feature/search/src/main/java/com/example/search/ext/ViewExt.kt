@@ -60,7 +60,7 @@ fun bindImageFromUrlWithPlaceholder(
                 return false
             }
         })
-        .placeholder(R.color.grey)
-        .fallback(R.color.grey)
+        .placeholder(R.color.grey1)
+        .fallback(R.color.grey1)
         .into(view)
 }

@@ -3,7 +3,6 @@ package com.example.search.adapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
-import timber.log.Timber
 
 open class CustomScrollListener(
     private val mLinearLayoutManager: LinearLayoutManager,
@@ -39,7 +38,6 @@ open class CustomScrollListener(
             onLoadMore(currentPage)
             loading = true
         }
-        Timber.d("check_data:$currentPage")
     }
 
     open fun onLoadMore(currentPage: Int) {}

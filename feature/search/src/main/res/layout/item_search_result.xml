@@ -9,10 +9,11 @@
 
         <variable
             name="results"
-            type="com.kotlin.project.data.model.ResultsData" />
+            type="com.kotlin.project.data.model.SearchResultsData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -23,7 +24,7 @@
             android:id="@+id/main_image"
             imageFromUrl="@{BuildConfig.IMGURL + results.posterPath}"
             android:layout_width="100dp"
-            android:layout_height="135dp"
+            android:layout_height="145dp"
             android:layout_margin="10dp"
             android:contentDescription="@string/movieImage"
             android:scaleType="centerCrop"
@@ -36,34 +37,20 @@
             tools:src="@color/blue" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/movie_name"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_margin="@dimen/margin_8dp"
             android:text="@{results.title}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_x2_large"
+            app:layout_constraintBottom_toTopOf="@id/releaseDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/main_image"
             app:layout_constraintTop_toTopOf="@+id/main_image"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_chainStyle="spread_inside"
             tools:text="Test" />
-
-        <TextView
-            android:id="@+id/overview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@{results.overview}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_image"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="TestTestTestTestTestTestTestTestTestTest
-            \nTestTestTestTestTestTestTestTestTestTest" />
 
         <TextView
             android:id="@+id/releaseDate"
@@ -73,15 +60,28 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:text="@{results.releaseDate}"
+            android:textSize="@dimen/text_size_x_large"
             app:layout_constraintBottom_toBottomOf="@+id/main_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/main_image"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/movie_name"
             app:layout_constraintVertical_bias="1.0"
             tools:text="2021-01-01" />
 
+        <ImageView
+            android:id="@+id/bookmark"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/margin_12dp"
+            android:src="@drawable/ic_baseline_check_circle_outline_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/releaseDate"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/main_image"
+            app:layout_constraintTop_toBottomOf="@+id/movie_name" />
         <View
+            android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/black"

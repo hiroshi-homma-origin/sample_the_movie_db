@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_nav_graph"
     app:startDestination="@+id/navigation_search">
 
-    <show_hide_fragment
+    <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.search.SearchFragment"
-        android:label="@string/title_search"/>
+        android:name="com.example.search.ui.list.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_search_detail"
+            app:destination="@+id/navigation_search_detail"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search_detail"
+        android:name="com.example.search.ui.detail.SearchDetailFragment"
+        android:label="@string/title_search_detail"
+        tools:layout="@layout/fragment_search_detail">
+        <argument
+            android:name="transitionName"
+            app:argType="string"/>
+        <argument
+            android:name="movieId"
+            app:argType="integer"/>
+        <argument
+            android:name="imgUrl"
+            app:argType="string"/>
+    </fragment>
+
 </navigation>

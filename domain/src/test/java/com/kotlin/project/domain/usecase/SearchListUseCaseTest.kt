@@ -17,7 +17,7 @@ import org.junit.Test
 
 @Suppress("TestFunctionName")
 @ExperimentalCoroutinesApi
-class GetMovieListUseCaseTest {
+class SearchListUseCaseTest {
 
     // Executes tasks in the Architecture Components in the same thread
     @get:Rule
@@ -27,7 +27,7 @@ class GetMovieListUseCaseTest {
     private val testDispatcher = TestCoroutineDispatcher()
 
     @RelaxedMockK
-    lateinit var getMovieListUseCase: GetMovieListUseCase
+    lateinit var searchListUseCase: SearchListUseCase
 
     @Before
     fun setup() {
@@ -39,10 +39,10 @@ class GetMovieListUseCaseTest {
         // arrange
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "Star Wars"
-        coEvery { getMovieListUseCase.getMovieList(any(), any()) } returns
+        coEvery { searchListUseCase.searchList(any(), any()) } returns
             TheMovieDBResult.Success(TestData.testSearchResponse)
         // act
-        getMovieListUseCase.getMovieList(ak, word).successResponse?.let {
+        searchListUseCase.searchList(ak, word).successResponse?.let {
             println("check_data:${it.results.size}")
             assert(it.results.size == TestData.resultsSize)
         }
@@ -54,10 +54,10 @@ class GetMovieListUseCaseTest {
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "Star Wars"
         val throwable = Throwable(TestData.errorMessage)
-        coEvery { getMovieListUseCase.getMovieList(any(), any()) } returns
+        coEvery { searchListUseCase.searchList(any(), any()) } returns
             TheMovieDBResult.Failure(throwable)
         // act
-        getMovieListUseCase.getMovieList(ak, word).failureResponse?.let {
+        searchListUseCase.searchList(ak, word).failureResponse?.let {
             println("check_data:${it.message}")
             assert(it.message.equals(TestData.errorMessage))
         }

@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,11 +41,21 @@ class SearchFragment @Inject constructor() : Fragment() {
             setHasFixedSize(true)
             adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
             setCustomScrollListener()
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.recyclerView.adapter?.notifyDataSetChanged()
             setCustomScrollListener(true)
             searchViewModel.refresh()
+        }
+        postponeEnterTransition()
+        view.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
         }
     }
 
@@ -56,17 +66,21 @@ class SearchFragment @Inject constructor() : Fragment() {
     }
 
     private fun setCustomScrollListener(isRefresh: Boolean = false) {
-        binding.recyclerView.clearOnScrollListeners()
-        binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
-            binding.recyclerView.layoutManager as LinearLayoutManager,
-            isRefresh,
-            searchViewModel.currentPage
-        ) {
-            override fun onLoadMore(currentPage: Int) {
-                if (currentPage <= searchViewModel.totalPage) {
-                    searchViewModel.addPage(currentPage)
+        binding.recyclerView.apply {
+            clearOnScrollListeners()
+            addOnScrollListener(
+                object : CustomScrollListener(
+                    layoutManager as LinearLayoutManager,
+                    isRefresh,
+                    searchViewModel.currentPage
+                ) {
+                    override fun onLoadMore(currentPage: Int) {
+                        if (currentPage <= searchViewModel.totalPage) {
+                            searchViewModel.addPage(currentPage)
+                        }
+                    }
                 }
-            }
-        })
+            )
+        }
     }
 }

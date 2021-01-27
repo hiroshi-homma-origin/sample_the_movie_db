@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.search.SearchViewModel" />
+            type="com.example.search.ui.list.SearchViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

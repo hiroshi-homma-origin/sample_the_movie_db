@@ -2,11 +2,11 @@ package com.kotlin.project.data.repository
 
 import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.api.TheMovieDBApi
-import com.kotlin.project.data.model.SearchResponse
+import com.kotlin.project.data.model.response.SearchResponse
 import javax.inject.Inject
 
-interface GetMovieListRepository {
-    suspend fun getMovieList(
+interface SearchListRepository {
+    suspend fun searchList(
         apiKey: String,
         searchWord: String,
         page: Int? = 1,
@@ -14,14 +14,14 @@ interface GetMovieListRepository {
     ): SearchResponse
 }
 
-internal class GetMovieListRepositoryImpl @Inject constructor(
+internal class SearchListRepositoryImpl @Inject constructor(
     private val theMovieDBApi: TheMovieDBApi
-) : GetMovieListRepository {
+) : SearchListRepository {
 
-    override suspend fun getMovieList(
+    override suspend fun searchList(
         apiKey: String,
         searchWord: String,
         page: Int?,
         language: String?
-    ): SearchResponse = theMovieDBApi.getMovieList(apiKey, searchWord, page, language)
+    ): SearchResponse = theMovieDBApi.searchList(apiKey, searchWord, page, language)
 }
