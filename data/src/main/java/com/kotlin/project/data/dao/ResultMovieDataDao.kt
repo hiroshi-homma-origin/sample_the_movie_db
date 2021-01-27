@@ -10,10 +10,13 @@ import com.kotlin.project.data.entities.ResultMovieData
 interface ResultMovieDataDao {
 
     @Query("SELECT * FROM resultMovieData LIMIT 20")
-    fun get20Data(): ResultMovieData
+    fun get20Data(): List<ResultMovieData>
 
     @Query("SELECT * FROM resultMovieData")
-    fun getMovie(): ResultMovieData
+    fun getMovie(): List<ResultMovieData>
+
+    @Query("SELECT * FROM resultMovieData WHERE id = :id")
+    fun findId(id: Int): ResultMovieData?
 
     @Query("DELETE FROM resultMovieData")
     fun deleteAll()

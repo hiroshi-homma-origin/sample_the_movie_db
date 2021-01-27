@@ -67,7 +67,6 @@ class SearchDetailFragment @Inject constructor() : Fragment() {
 
     private fun observe() {
         searchDetailViewModel.detailData.observe(viewLifecycleOwner) {
-            Timber.d("check_data:$it")
             binding.detailData = it
         }
     }

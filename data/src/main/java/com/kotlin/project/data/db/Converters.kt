@@ -9,7 +9,7 @@ class Converters {
     @TypeConverter
     fun jsonToList(value: String): ArrayList<Int> {
         val array = arrayListOf<Int>()
-        value.split(",").forEach { array.add(it.toInt()) }
+        if (value.isNotEmpty()) value.split(",").forEach { array.add(it.toInt()) }
         return array
     }
 
@@ -19,7 +19,7 @@ class Converters {
     @TypeConverter
     fun jsonToListString(value: String): ArrayList<String> {
         val array = arrayListOf<String>()
-        value.split(",").forEach { array.add(it) }
+        if (value.isNotEmpty()) value.split(",").forEach { array.add(it) }
         return array
     }
 }

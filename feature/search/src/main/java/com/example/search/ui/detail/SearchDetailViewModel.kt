@@ -14,6 +14,7 @@ import com.kotlin.project.data.model.TheMovieDBStatus.Success
 import com.kotlin.project.data.model.failureResponse
 import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.domain.usecase.DetailDataUseCase
+import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 class SearchDetailViewModel @Inject constructor(
     application: Application,
-    private val detailDataUseCase: DetailDataUseCase
+    private val detailDataUseCase: DetailDataUseCase,
+    private val resultMovieDataUseCase: ResultMovieDataUseCase
 ) : AndroidViewModel(application), LifecycleObserver {
 
     // data
