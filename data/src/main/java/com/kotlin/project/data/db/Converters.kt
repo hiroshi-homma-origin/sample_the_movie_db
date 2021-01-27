@@ -12,4 +12,14 @@ class Converters {
         value.split(",").forEach { array.add(it.toInt()) }
         return array
     }
+
+    @TypeConverter
+    fun listStringToJson(value: ArrayList<String>): String = value.joinToString(separator = ",")
+
+    @TypeConverter
+    fun jsonToListString(value: String): ArrayList<String> {
+        val array = arrayListOf<String>()
+        value.split(",").forEach { array.add(it) }
+        return array
+    }
 }
