@@ -8,20 +8,16 @@
 
     <string name="testTitle">TestTestTestTest</string>
     <string name="testDescription">
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
-        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
     </string>
 </resources>

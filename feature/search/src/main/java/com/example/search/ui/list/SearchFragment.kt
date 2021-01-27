@@ -53,11 +53,10 @@ class SearchFragment @Inject constructor() : Fragment() {
             searchViewModel.refresh()
         }
         postponeEnterTransition()
-        view.viewTreeObserver
-            .addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
+        view.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
     }
 
     private fun observe() {
@@ -69,17 +68,19 @@ class SearchFragment @Inject constructor() : Fragment() {
     private fun setCustomScrollListener(isRefresh: Boolean = false) {
         binding.recyclerView.apply {
             clearOnScrollListeners()
-            addOnScrollListener(object : CustomScrollListener(
-                layoutManager as LinearLayoutManager,
-                isRefresh,
-                searchViewModel.currentPage
-            ) {
+            addOnScrollListener(
+                object : CustomScrollListener(
+                    layoutManager as LinearLayoutManager,
+                    isRefresh,
+                    searchViewModel.currentPage
+                ) {
                     override fun onLoadMore(currentPage: Int) {
                         if (currentPage <= searchViewModel.totalPage) {
                             searchViewModel.addPage(currentPage)
                         }
                     }
-                })
+                }
+            )
         }
     }
 }

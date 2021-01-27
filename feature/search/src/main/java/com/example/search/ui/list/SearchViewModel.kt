@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.search.BuildConfig
 import com.example.search.R.string
-import com.kotlin.project.data.model.ResultsData
+import com.kotlin.project.data.model.SearchResultsData
 import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.model.TheMovieDBStatus
 import com.kotlin.project.data.model.TheMovieDBStatus.Failure
@@ -41,8 +41,8 @@ class SearchViewModel @Inject constructor(
     private val _currentResultText = MutableLiveData<String>()
     val currentResultText: LiveData<String> = _currentResultText
 
-    private val _list = MediatorLiveData<List<ResultsData>>()
-    val list: LiveData<List<ResultsData>> = _list
+    private val _list = MediatorLiveData<List<SearchResultsData>>()
+    val list: LiveData<List<SearchResultsData>> = _list
 
     init {
         fetchData()
@@ -71,7 +71,7 @@ class SearchViewModel @Inject constructor(
                     when {
                         isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
                         else -> {
-                            val addList = _list.value as MutableList<ResultsData>
+                            val addList = _list.value as MutableList<SearchResultsData>
                             addList.addAll(r.data.results)
                             _list.postValue(addList)
                         }

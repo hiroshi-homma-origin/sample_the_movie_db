@@ -45,35 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/series_image1"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_margin="@dimen/margin_8dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@null"
-            app:layout_constraintBottom_toTopOf="@+id/movie_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_image"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <ImageView
-            android:id="@+id/series_image2"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_margin="@dimen/margin_8dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@null"
-            app:layout_constraintBottom_toTopOf="@+id/movie_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/main_image"
-            app:layout_constraintTop_toBottomOf="@id/series_image1"
-            app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@color/grey1" />
 
         <TextView
             android:id="@+id/movie_name"
@@ -84,8 +56,10 @@
             app:layout_constraintBottom_toTopOf="@id/description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_image" />
+            app:layout_constraintStart_toEndOf="@+id/main_image"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/description"
@@ -93,13 +67,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8dp"
             android:ellipsize="end"
-            android:maxLines="13"
+            android:maxLines="9"
             android:text="@string/testDescription"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toTopOf="@id/bookmark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/main_image"
             app:layout_constraintTop_toBottomOf="@id/movie_name"
             app:layout_constraintVertical_bias="0.0" />
 

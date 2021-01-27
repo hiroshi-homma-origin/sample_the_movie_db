@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 @Suppress("TestFunctionName")
 @ExperimentalCoroutinesApi
-class GetMovieListRepositoryTest {
+class DetailDataRepositoryTest {
 
     private var mockWebServer = MockWebServer()
     private lateinit var theMovieDBApi: TheMovieDBApi
@@ -54,16 +54,12 @@ class GetMovieListRepositoryTest {
 
     @Test
     fun testGetMyNewsList() = runBlocking {
-        val word = "Star Wars"
-        val r = GetMovieListRepositoryImpl(theMovieDBApi)
-            .getMovieList(BuildConfig.APIKEY, word)
+        val r = DetailDataRepositoryImpl(theMovieDBApi)
+            .detailData(11, BuildConfig.APIKEY)
 
-        println("check_data1:${r.results.size}")
-        println("check_data2:${r.totalPages}")
-        println("check_data3:${r.totalResults}")
+        println("check_data1:$r")
+        println("check_data2:${TestData.dummyDetailDataJapanese}")
 
-        assert(r.results.size == TestData.resultsSize)
-        assert(r.totalPages == TestData.totalPages)
-        assert(r.totalResults == TestData.totalResults)
+        assert(r == TestData.dummyDetailDataJapanese)
     }
 }

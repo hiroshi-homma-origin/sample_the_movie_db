@@ -1,6 +1,6 @@
 package com.kotlin.project.data.model
 
-data class ResultsData(
+data class SearchResultsData(
     val adult: Boolean,
     val backdropPath: String?,
     val genreIds: ArrayList<Int>,
