@@ -37,7 +37,11 @@ class SearchResultsRecyclerViewAdapter(
             holder.binding.mainImage.apply {
                 transitionName = path
                 findNavController().navigate(
-                    SearchFragmentDirections.actionSearchToSearchDetail(transitionName, path),
+                    SearchFragmentDirections.actionSearchToSearchDetail(
+                        transitionName,
+                        list[position].id,
+                        path
+                    ),
                     FragmentNavigatorExtras(this to transitionName)
                 )
             }

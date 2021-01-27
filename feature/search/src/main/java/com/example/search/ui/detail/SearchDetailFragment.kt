@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.transition.TransitionInflater
@@ -28,6 +30,10 @@ class SearchDetailFragment @Inject constructor() : Fragment() {
 
     private lateinit var binding: FragmentSearchDetailBinding
 
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+    private val searchDetailViewModel: SearchDetailViewModel by viewModels { factory }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,12 +42,12 @@ class SearchDetailFragment @Inject constructor() : Fragment() {
         binding = FragmentSearchDetailBinding.inflate(inflater, container, false)
         setSharedElementTransitionOnEnter()
         postponeEnterTransition()
+        observe()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.d("check_arg2:$arguments")
         arguments?.let {
             binding.mainImage.apply {
                 transitionName = SearchDetailFragmentArgs.fromBundle(it).transitionName
@@ -50,11 +56,20 @@ class SearchDetailFragment @Inject constructor() : Fragment() {
                     this
                 )
             }
+            val mId = SearchDetailFragmentArgs.fromBundle(it).movieId
+            searchDetailViewModel.setMovieId(mId)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(findNavController()) || super.onOptionsItemSelected(item)
+    }
+
+    private fun observe() {
+        searchDetailViewModel.detailData.observe(viewLifecycleOwner) {
+            Timber.d("check_data:$it")
+            binding.detailData = it
+        }
     }
 
     private fun setSharedElementTransitionOnEnter() {

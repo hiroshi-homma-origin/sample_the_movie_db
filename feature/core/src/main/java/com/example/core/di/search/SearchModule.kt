@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.core.di.core.FragmentKey
 import com.example.core.di.core.ViewModelKey
 import com.example.search.ui.detail.SearchDetailFragment
+import com.example.search.ui.detail.SearchDetailViewModel
 import com.example.search.ui.list.SearchFragment
 import com.example.search.ui.list.SearchViewModel
 import dagger.Binds
@@ -27,4 +28,9 @@ abstract class SearchModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun provideSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchDetailViewModel::class)
+    abstract fun provideSearchDetailViewModel(viewModel: SearchDetailViewModel): ViewModel
 }

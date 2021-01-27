@@ -24,6 +24,9 @@
             android:name="transitionName"
             app:argType="string"/>
         <argument
+            android:name="movieId"
+            app:argType="integer"/>
+        <argument
             android:name="imgUrl"
             app:argType="string"/>
     </fragment>
