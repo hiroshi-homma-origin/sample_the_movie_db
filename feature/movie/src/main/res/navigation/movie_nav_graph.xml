@@ -4,7 +4,7 @@
     android:id="@+id/movie_nav_graph"
     app:startDestination="@+id/navigation_movie">
 
-    <show_hide_fragment
+    <fragment
         android:id="@+id/navigation_movie"
         android:name="com.example.movie.MovieFragment"
         android:label="@string/title_movie"/>

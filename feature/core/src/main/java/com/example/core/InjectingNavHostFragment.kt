@@ -3,12 +3,11 @@ package com.example.core
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentFactory
-import com.example.core.navigation.ShowHideNavHostFragment
+import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class InjectingNavHostFragment : ShowHideNavHostFragment() {
-
+class InjectingNavHostFragment : NavHostFragment() {
     @Inject
     lateinit var daggerFragmentInjectionFactory: FragmentFactory
 

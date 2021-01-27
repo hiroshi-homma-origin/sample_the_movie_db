@@ -4,7 +4,7 @@
     android:id="@+id/tv_nav_graph"
     app:startDestination="@+id/navigation_tv">
 
-    <show_hide_fragment
+    <fragment
         android:id="@+id/navigation_tv"
         android:name="com.example.tv.TvFragment"
         android:label="@string/title_tv"/>

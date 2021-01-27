@@ -1,7 +1,27 @@
 <resources>
     <string name="app_name">TheMovieDB</string>
     <string name="title_search">search</string>
+    <string name="title_search_detail">search_detail</string>
     <string name="title_movie">movie</string>
     <string name="title_tv">TV</string>
     <string name="movieImage">TODO</string>
+
+    <string name="testTitle">TestTestTestTest</string>
+    <string name="testDescription">
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+        TestTestTestTestTestTestTest
+    </string>
 </resources>

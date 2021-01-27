@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.ui.list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.search.BuildConfig
+import com.example.search.R.string
 import com.kotlin.project.data.model.ResultsData
 import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.model.TheMovieDBStatus
@@ -67,7 +69,7 @@ class SearchViewModel @Inject constructor(
                 is TheMovieDBResult.Success -> {
                     totalPage = r.data.totalPages
                     _currentResultText.postValue(
-                        context.getString(R.string.title_search) +
+                        context.getString(string.title_search) +
                             "GetData (" + addPage + " / " + r.data.totalPages + ")"
                     )
                     when {

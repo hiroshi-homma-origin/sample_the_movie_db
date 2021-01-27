@@ -3,10 +3,13 @@ package com.example.search.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.example.search.R
-import com.example.search.SearchViewModel
 import com.example.search.databinding.ItemSearchResultBinding
+import com.example.search.ui.list.SearchFragmentDirections
+import com.example.search.ui.list.SearchViewModel
 
 class SearchResultsRecyclerViewAdapter(
     private val spritesViewModel: SearchViewModel
@@ -29,6 +32,20 @@ class SearchResultsRecyclerViewAdapter(
     override fun onBindViewHolder(holder: SearchResultsHolder, position: Int) {
         val list = spritesViewModel.list.value ?: return
         holder.binding.results = list[position]
+        holder.itemView.setOnClickListener {
+            holder.binding.mainImage.apply {
+                transitionName = list[position].posterPath ?: ""
+                findNavController().navigate(
+                    SearchFragmentDirections.actionSearchToSearchDetail(
+                        transitionName,
+                        list[position].posterPath ?: ""
+                    ),
+                    FragmentNavigatorExtras(
+                        this to transitionName
+                    )
+                )
+            }
+        }
     }
 
     class SearchResultsHolder(val binding: ItemSearchResultBinding) :

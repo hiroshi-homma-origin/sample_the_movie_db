@@ -1,4 +1,4 @@
-package com.example.search
+package com.example.search.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,12 +41,23 @@ class SearchFragment @Inject constructor() : Fragment() {
             setHasFixedSize(true)
             adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
             setCustomScrollListener()
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.recyclerView.adapter?.notifyDataSetChanged()
             setCustomScrollListener(true)
             searchViewModel.refresh()
         }
+        postponeEnterTransition()
+        view.viewTreeObserver
+            .addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
     }
 
     private fun observe() {
@@ -62,11 +73,11 @@ class SearchFragment @Inject constructor() : Fragment() {
             isRefresh,
             searchViewModel.currentPage
         ) {
-            override fun onLoadMore(currentPage: Int) {
-                if (currentPage <= searchViewModel.totalPage) {
-                    searchViewModel.addPage(currentPage)
+                override fun onLoadMore(currentPage: Int) {
+                    if (currentPage <= searchViewModel.totalPage) {
+                        searchViewModel.addPage(currentPage)
+                    }
                 }
-            }
-        })
+            })
     }
 }
