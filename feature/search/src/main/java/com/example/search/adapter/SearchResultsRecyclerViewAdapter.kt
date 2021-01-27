@@ -32,17 +32,13 @@ class SearchResultsRecyclerViewAdapter(
     override fun onBindViewHolder(holder: SearchResultsHolder, position: Int) {
         val list = spritesViewModel.list.value ?: return
         holder.binding.results = list[position]
+        val path = list[position].posterPath ?: ""
         holder.itemView.setOnClickListener {
             holder.binding.mainImage.apply {
-                transitionName = list[position].posterPath ?: ""
+                transitionName = path
                 findNavController().navigate(
-                    SearchFragmentDirections.actionSearchToSearchDetail(
-                        transitionName,
-                        list[position].posterPath ?: ""
-                    ),
-                    FragmentNavigatorExtras(
-                        this to transitionName
-                    )
+                    SearchFragmentDirections.actionSearchToSearchDetail(transitionName, path),
+                    FragmentNavigatorExtras(this to transitionName)
                 )
             }
         }

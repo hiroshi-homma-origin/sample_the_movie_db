@@ -6,8 +6,8 @@ import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.repository.GetMovieListRepository
 import javax.inject.Inject
 
-interface GetMovieListUseCase {
-    suspend fun getMovieList(
+interface SearchListUseCase {
+    suspend fun searchList(
         apiKey: String,
         searchWord: String,
         page: Int? = 1,
@@ -15,10 +15,10 @@ interface GetMovieListUseCase {
     ): TheMovieDBResult<SearchResponse>
 }
 
-class GetMovieListUseCaseImpl @Inject constructor(
+class SearchListUseCaseImpl @Inject constructor(
     private val getMasterListRepository: GetMovieListRepository
-) : GetMovieListUseCase {
-    override suspend fun getMovieList(
+) : SearchListUseCase {
+    override suspend fun searchList(
         apiKey: String,
         searchWord: String,
         page: Int?,

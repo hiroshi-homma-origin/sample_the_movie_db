@@ -67,17 +67,19 @@ class SearchFragment @Inject constructor() : Fragment() {
     }
 
     private fun setCustomScrollListener(isRefresh: Boolean = false) {
-        binding.recyclerView.clearOnScrollListeners()
-        binding.recyclerView.addOnScrollListener(object : CustomScrollListener(
-            binding.recyclerView.layoutManager as LinearLayoutManager,
-            isRefresh,
-            searchViewModel.currentPage
-        ) {
-                override fun onLoadMore(currentPage: Int) {
-                    if (currentPage <= searchViewModel.totalPage) {
-                        searchViewModel.addPage(currentPage)
+        binding.recyclerView.apply {
+            clearOnScrollListeners()
+            addOnScrollListener(object : CustomScrollListener(
+                layoutManager as LinearLayoutManager,
+                isRefresh,
+                searchViewModel.currentPage
+            ) {
+                    override fun onLoadMore(currentPage: Int) {
+                        if (currentPage <= searchViewModel.totalPage) {
+                            searchViewModel.addPage(currentPage)
+                        }
                     }
-                }
-            })
+                })
+        }
     }
 }

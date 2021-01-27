@@ -17,7 +17,7 @@ import com.kotlin.project.data.model.TheMovieDBStatus.Loading
 import com.kotlin.project.data.model.TheMovieDBStatus.ReLoading
 import com.kotlin.project.data.model.TheMovieDBStatus.Success
 import com.kotlin.project.data.model.failureResponse
-import com.kotlin.project.domain.usecase.GetMovieListUseCase
+import com.kotlin.project.domain.usecase.SearchListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -25,19 +25,19 @@ import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
     application: Application,
-    private val getMovieListUseCase: GetMovieListUseCase
+    private val searchListUseCase: SearchListUseCase
 ) : AndroidViewModel(application), LifecycleObserver {
 
+    // member variables
     private val context = getApplication<Application>().applicationContext
+    var currentPage = 1
+    var totalPage = 1
 
     // status
     private val _status = MutableLiveData<TheMovieDBStatus>()
     val status: LiveData<TheMovieDBStatus> = _status
 
     // data
-    var currentPage = 1
-    var totalPage = 1
-
     private val _currentResultText = MutableLiveData<String>()
     val currentResultText: LiveData<String> = _currentResultText
 
@@ -58,19 +58,15 @@ class SearchViewModel @Inject constructor(
         fetchData(addPage = addPage)
     }
 
-    private fun fetchData(isPullToRefresh: Boolean = false, addPage: Int = 1) {
+    private fun fetchData(isPullToRefresh: Boolean = false, addPage: Int = 1, key: String = "Star Wars") {
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            when (
-                val r = getMovieListUseCase.getMovieList(
-                    BuildConfig.APIKEY, "Star Wars", addPage
-                )
-            ) {
+            when (val r = searchListUseCase.searchList(BuildConfig.APIKEY, key, addPage)) {
                 is TheMovieDBResult.Success -> {
                     totalPage = r.data.totalPages
                     _currentResultText.postValue(
                         context.getString(string.title_search) +
-                            "GetData (" + addPage + " / " + r.data.totalPages + ")"
+                            "(" + addPage + " / " + totalPage + ")"
                     )
                     when {
                         isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
