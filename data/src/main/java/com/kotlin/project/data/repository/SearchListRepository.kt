@@ -12,6 +12,13 @@ interface SearchListRepository {
         page: Int? = 1,
         language: String? = BuildConfig.LANGUAGE
     ): SearchResponse
+
+    suspend fun searchTvList(
+        apiKey: String,
+        searchWord: String,
+        page: Int? = 1,
+        language: String? = BuildConfig.LANGUAGE
+    ): SearchResponse
 }
 
 internal class SearchListRepositoryImpl @Inject constructor(
@@ -24,4 +31,11 @@ internal class SearchListRepositoryImpl @Inject constructor(
         page: Int?,
         language: String?
     ): SearchResponse = theMovieDBApi.searchList(apiKey, searchWord, page, language)
+
+    override suspend fun searchTvList(
+        apiKey: String,
+        searchWord: String,
+        page: Int?,
+        language: String?
+    ): SearchResponse = theMovieDBApi.searchTvList(apiKey, searchWord, page, language)
 }

@@ -53,7 +53,7 @@ class SearchListRepositoryTest {
     }
 
     @Test
-    fun testGetMyNewsList() = runBlocking {
+    fun testSearchList() = runBlocking {
         val word = "Star Wars"
         val r = SearchListRepositoryImpl(theMovieDBApi)
             .searchList(BuildConfig.APIKEY, word)
@@ -65,5 +65,20 @@ class SearchListRepositoryTest {
         assert(r.results.size == TestData.resultsSize)
         assert(r.totalPages == TestData.totalPages)
         assert(r.totalResults == TestData.totalResults)
+    }
+
+    @Test
+    fun testSearchTvList() = runBlocking {
+        val word = "鬼滅"
+        val r = SearchListRepositoryImpl(theMovieDBApi)
+            .searchTvList(BuildConfig.APIKEY, word)
+
+        println("check_data1:${r.results.size}")
+        println("check_data2:${r.totalPages}")
+        println("check_data3:${r.totalResults}")
+
+        assert(r.results.size == TestData.resultsSizeForTv)
+        assert(r.totalPages == TestData.totalPagesForTv)
+        assert(r.totalResults == TestData.totalResultsForTv)
     }
 }

@@ -16,6 +16,14 @@ interface TheMovieDBApi {
         @Query("language") language: String? = BuildConfig.LANGUAGE
     ): SearchResponse
 
+    @GET("3/search/tv")
+    suspend fun searchTvList(
+        @Query("api_key") apiKey: String,
+        @Query("query") searchWord: String,
+        @Query("page") page: Int? = 1,
+        @Query("language") language: String? = BuildConfig.LANGUAGE
+    ): SearchResponse
+
     @GET("3/movie/{id}")
     suspend fun detailData(
         @Path("id") id: Int,

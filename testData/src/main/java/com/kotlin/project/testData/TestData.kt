@@ -14,6 +14,9 @@ object TestData {
     const val resultsSize = 20
     const val totalPages = 8
     const val totalResults = 147
+    const val resultsSizeForTv = 1
+    const val totalPagesForTv = 1
+    const val totalResultsForTv = 1
     const val errorMessage = "TestError"
 
     private fun searchList(): ArrayList<SearchResultsData> {
