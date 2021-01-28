@@ -1,4 +1,4 @@
-package com.example.search.adapter
+package com.example.search.ui.list.adapter
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

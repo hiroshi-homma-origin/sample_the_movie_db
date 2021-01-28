@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.search.adapter.CustomScrollListener
-import com.example.search.adapter.SearchResultsRecyclerViewAdapter
+import com.example.search.ui.list.adapter.CustomScrollListener
+import com.example.search.ui.list.adapter.SearchResultsRecyclerViewAdapter
 import com.example.search.databinding.FragmentSearchBinding
 import javax.inject.Inject
 

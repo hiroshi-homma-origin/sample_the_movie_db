@@ -9,9 +9,6 @@ import com.kotlin.project.data.entities.ResultMovieData
 @Dao
 interface ResultMovieDataDao {
 
-    @Query("SELECT * FROM resultMovieData LIMIT 20")
-    fun get20Data(): List<ResultMovieData>
-
     @Query("SELECT * FROM resultMovieData")
     fun getMovie(): List<ResultMovieData>
 

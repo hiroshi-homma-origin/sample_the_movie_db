@@ -68,6 +68,7 @@ class SearchViewModel @Inject constructor(
         addPage: Int = 1,
         key: String = "Star Wars"
     ) {
+        val text = context.getString(string.title_search) + "(" + addPage + " / " + totalPage + ")"
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
             when (val r = searchListUseCase.searchList(BuildConfig.APIKEY, key, addPage)) {
@@ -77,10 +78,7 @@ class SearchViewModel @Inject constructor(
 
                     insertMovieData(r.data.results)
 
-                    _currentResultText.postValue(
-                        context.getString(string.title_search) +
-                            "(" + addPage + " / " + totalPage + ")"
-                    )
+                    _currentResultText.postValue(text)
                     when {
                         isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
                         else -> {

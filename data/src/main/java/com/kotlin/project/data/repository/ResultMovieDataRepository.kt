@@ -5,7 +5,6 @@ import com.kotlin.project.data.entities.ResultMovieData
 import javax.inject.Inject
 
 interface ResultMovieDataRepository {
-    suspend fun get20Data(): List<ResultMovieData>
     suspend fun getMovie(): List<ResultMovieData>
     suspend fun findId(id: Int): ResultMovieData?
     suspend fun deleteAll()
@@ -16,8 +15,6 @@ interface ResultMovieDataRepository {
 class ResultMovieDataRepositoryImpl @Inject constructor(
     private val dao: ResultMovieDataDao
 ) : ResultMovieDataRepository {
-
-    override suspend fun get20Data(): List<ResultMovieData> = dao.get20Data()
 
     override suspend fun getMovie(): List<ResultMovieData> = dao.getMovie()
 

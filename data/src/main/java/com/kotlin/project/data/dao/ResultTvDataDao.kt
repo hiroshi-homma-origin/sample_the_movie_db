@@ -9,9 +9,6 @@ import com.kotlin.project.data.entities.ResultTvData
 @Dao
 interface ResultTvDataDao {
 
-    @Query("SELECT * FROM resultTvData LIMIT 20")
-    fun get20Data(): List<ResultTvData>
-
     @Query("SELECT * FROM resultTvData")
     fun getTv(): List<ResultTvData>
 

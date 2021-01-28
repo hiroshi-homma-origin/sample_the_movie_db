@@ -5,7 +5,6 @@ import com.kotlin.project.data.repository.ResultTvDataRepository
 import javax.inject.Inject
 
 interface ResultTvDataUseCase {
-    suspend fun get20Data(): List<ResultTvData>
     suspend fun getTv(): List<ResultTvData>
     suspend fun findId(id: Int): ResultTvData?
     suspend fun deleteAll()
@@ -16,7 +15,6 @@ interface ResultTvDataUseCase {
 class ResultTvDataUseCaseImpl @Inject constructor(
     private val repository: ResultTvDataRepository
 ) : ResultTvDataUseCase {
-    override suspend fun get20Data(): List<ResultTvData> = repository.get20Data()
     override suspend fun getTv(): List<ResultTvData> = repository.getTv()
     override suspend fun findId(id: Int): ResultTvData? = repository.findId(id)
     override suspend fun deleteAll() = repository.deleteAll()
