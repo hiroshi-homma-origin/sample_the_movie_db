@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       # Gem Cache
       - name: Gem Cache
         uses: actions/cache@v2
