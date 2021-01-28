@@ -74,9 +74,8 @@ class SearchViewModel @Inject constructor(
                 is TheMovieDBResult.Success -> {
                     totalPage = r.data.totalPages
                     totalResults = r.data.totalResults
-//                    if (getMovieDataSize() == 0) {
+
                     insertMovieData(r.data.results)
-//                    }
 
                     _currentResultText.postValue(
                         context.getString(string.title_search) +

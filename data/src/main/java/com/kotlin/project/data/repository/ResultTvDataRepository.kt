@@ -1,7 +1,6 @@
 package com.kotlin.project.data.repository
 
 import com.kotlin.project.data.dao.ResultTvDataDao
-import com.kotlin.project.data.entities.ResultMovieData
 import com.kotlin.project.data.entities.ResultTvData
 import javax.inject.Inject
 

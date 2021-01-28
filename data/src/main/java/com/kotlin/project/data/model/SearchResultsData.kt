@@ -19,7 +19,7 @@ data class SearchResultsData(
     val voteCount: Int
 )
 
-fun SearchResultsData.transform(): ResultMovieData{
+fun SearchResultsData.transform(): ResultMovieData {
     return ResultMovieData(
         uid = 0,
         adult = adult,

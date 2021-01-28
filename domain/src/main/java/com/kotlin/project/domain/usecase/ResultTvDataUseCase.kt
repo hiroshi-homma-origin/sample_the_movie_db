@@ -1,6 +1,5 @@
 package com.kotlin.project.domain.usecase
 
-import com.kotlin.project.data.entities.ResultMovieData
 import com.kotlin.project.data.entities.ResultTvData
 import com.kotlin.project.data.repository.ResultTvDataRepository
 import javax.inject.Inject

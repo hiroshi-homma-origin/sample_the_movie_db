@@ -23,7 +23,6 @@ import com.example.search.BuildConfig
 import com.example.search.R
 import com.example.search.R.transition
 import com.example.search.databinding.FragmentSearchDetailBinding
-import timber.log.Timber
 import javax.inject.Inject
 
 class SearchDetailFragment @Inject constructor() : Fragment() {

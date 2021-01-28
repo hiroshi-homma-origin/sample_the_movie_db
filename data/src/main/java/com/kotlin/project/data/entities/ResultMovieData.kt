@@ -42,5 +42,3 @@ fun ResultMovieData.transform(): SearchResultsData {
         voteCount = voteCount
     )
 }
-
-

@@ -1,12 +1,8 @@
 package com.kotlin.project.domain.di
 
-import com.kotlin.project.data.dao.ResultMovieDataDao
-import com.kotlin.project.data.dao.ResultTvDataDao
 import com.kotlin.project.data.repository.DetailDataRepository
 import com.kotlin.project.data.repository.ResultMovieDataRepository
-import com.kotlin.project.data.repository.ResultMovieDataRepositoryImpl
 import com.kotlin.project.data.repository.ResultTvDataRepository
-import com.kotlin.project.data.repository.ResultTvDataRepositoryImpl
 import com.kotlin.project.data.repository.SearchListRepository
 import com.kotlin.project.domain.usecase.DetailDataUseCase
 import com.kotlin.project.domain.usecase.DetailDataUseCaseImpl

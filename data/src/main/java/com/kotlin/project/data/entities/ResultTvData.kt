@@ -3,7 +3,6 @@ package com.kotlin.project.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kotlin.project.data.model.SearchResultsData
 import com.kotlin.project.data.model.SearchResultsTvData
 
 @Entity
