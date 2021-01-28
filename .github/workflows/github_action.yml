@@ -1,7 +1,5 @@
 name: TheMovieDB CI
 
-on: [pull_request]
-
 jobs:
   danger:
     name: Danger on pull request # GitHub上で識別しやすいのでジョブの名前をつけている
