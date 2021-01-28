@@ -1,8 +1,8 @@
 package com.kotlin.project.domain.usecase
 
 import com.kotlin.project.data.BuildConfig
-import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.model.response.DetailResponse
+import com.kotlin.project.data.model.result.TheMovieDBResult
 import com.kotlin.project.data.repository.DetailDataRepository
 import javax.inject.Inject
 

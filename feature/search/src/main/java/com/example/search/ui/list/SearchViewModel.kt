@@ -10,15 +10,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.search.BuildConfig
 import com.example.search.R.string
 import com.kotlin.project.data.entities.transform
-import com.kotlin.project.data.model.SearchResultsData
-import com.kotlin.project.data.model.TheMovieDBResult
-import com.kotlin.project.data.model.TheMovieDBStatus
-import com.kotlin.project.data.model.TheMovieDBStatus.Failure
-import com.kotlin.project.data.model.TheMovieDBStatus.Loading
-import com.kotlin.project.data.model.TheMovieDBStatus.ReLoading
-import com.kotlin.project.data.model.TheMovieDBStatus.Success
-import com.kotlin.project.data.model.failureResponse
-import com.kotlin.project.data.model.transform
+import com.kotlin.project.data.model.result.TheMovieDBResult
+import com.kotlin.project.data.model.result.failureResponse
+import com.kotlin.project.data.model.search.SearchMovieData
+import com.kotlin.project.data.model.search.transform
+import com.kotlin.project.data.model.status.TheMovieDBStatus
+import com.kotlin.project.data.model.status.TheMovieDBStatus.Failure
+import com.kotlin.project.data.model.status.TheMovieDBStatus.Loading
+import com.kotlin.project.data.model.status.TheMovieDBStatus.ReLoading
+import com.kotlin.project.data.model.status.TheMovieDBStatus.Success
 import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import com.kotlin.project.domain.usecase.SearchListUseCase
 import kotlinx.coroutines.Dispatchers
@@ -46,8 +46,8 @@ class SearchViewModel @Inject constructor(
     private val _currentResultText = MutableLiveData<String>()
     val currentResultText: LiveData<String> = _currentResultText
 
-    private val _list = MediatorLiveData<List<SearchResultsData>>()
-    val list: LiveData<List<SearchResultsData>> = _list
+    private val _list = MediatorLiveData<List<SearchMovieData>>()
+    val list: LiveData<List<SearchMovieData>> = _list
 
     init {
         fetchData()
@@ -82,7 +82,7 @@ class SearchViewModel @Inject constructor(
                     when {
                         isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
                         else -> {
-                            val addList = _list.value as MutableList<SearchResultsData>
+                            val addList = _list.value as MutableList<SearchMovieData>
                             addList.addAll(r.data.results)
                             _list.postValue(addList)
                         }
@@ -102,7 +102,7 @@ class SearchViewModel @Inject constructor(
 
     private suspend fun getMovieDataSize() = resultMovieDataUseCase.getMovie().size
 
-    private fun insertMovieData(results: ArrayList<SearchResultsData>) {
+    private fun insertMovieData(results: ArrayList<SearchMovieData>) {
         viewModelScope.launch(Dispatchers.IO) {
             if (resultMovieDataUseCase.getMovie().size < totalResults) {
                 results.forEach {

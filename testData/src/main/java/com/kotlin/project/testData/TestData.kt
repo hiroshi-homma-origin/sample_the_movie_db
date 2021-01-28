@@ -1,13 +1,13 @@
 package com.kotlin.project.testData
 
-import com.kotlin.project.data.entities.ResultMovieData
-import com.kotlin.project.data.model.BelongsToCollection
-import com.kotlin.project.data.model.Genres
-import com.kotlin.project.data.model.ProductionCompanies
-import com.kotlin.project.data.model.ProductionCountries
-import com.kotlin.project.data.model.SearchResultsData
+import com.kotlin.project.data.entities.MovieData
+import com.kotlin.project.data.model.SearchMovieData
 import com.kotlin.project.data.model.SearchResultsTvData
-import com.kotlin.project.data.model.SpokenLanguages
+import com.kotlin.project.data.model.detail.BelongsToCollection
+import com.kotlin.project.data.model.detail.Genres
+import com.kotlin.project.data.model.detail.ProductionCompanies
+import com.kotlin.project.data.model.detail.ProductionCountries
+import com.kotlin.project.data.model.detail.SpokenLanguages
 import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.data.model.response.SearchResponse
 import com.kotlin.project.data.model.response.SearchTvResponse
@@ -22,14 +22,14 @@ object TestData {
     const val totalResultsForTv = 1
     const val errorMessage = "TestError"
 
-    private fun searchList(): ArrayList<SearchResultsData> {
-        val arrayList: ArrayList<SearchResultsData> = arrayListOf()
+    private fun searchList(): ArrayList<SearchMovieData> {
+        val arrayList: ArrayList<SearchMovieData> = arrayListOf()
         val list = (0..19).map { dummySearchResultsData }
         list.forEach { arrayList.add(it) }
         return arrayList
     }
 
-    private val dummySearchResultsData = SearchResultsData(
+    private val dummySearchResultsData = SearchMovieData(
         adult = false,
         backdropPath = "/zqkmTXzjkAgXmEWLRsY4UpTWCeo.jpg",
         genreIds = arrayListOf(12, 28, 878),
@@ -139,7 +139,7 @@ object TestData {
         totalPages = 1, totalResults = 1
     )
 
-    val testResultMovieData = ResultMovieData(
+    val testResultMovieData = MovieData(
         uid = 0,
         adult = false,
         backdropPath = "/zqkmTXzjkAgXmEWLRsY4UpTWCeo.jpg",

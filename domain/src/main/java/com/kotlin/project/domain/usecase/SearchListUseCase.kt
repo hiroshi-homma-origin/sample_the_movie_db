@@ -1,9 +1,9 @@
 package com.kotlin.project.domain.usecase
 
 import com.kotlin.project.data.BuildConfig
-import com.kotlin.project.data.model.TheMovieDBResult
 import com.kotlin.project.data.model.response.SearchResponse
 import com.kotlin.project.data.model.response.SearchTvResponse
+import com.kotlin.project.data.model.result.TheMovieDBResult
 import com.kotlin.project.data.repository.SearchListRepository
 import javax.inject.Inject
 

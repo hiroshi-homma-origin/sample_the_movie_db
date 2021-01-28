@@ -1,4 +1,4 @@
-package com.kotlin.project.data.model
+package com.kotlin.project.data.model.detail
 
 data class SpokenLanguages(
     val englishName: String,

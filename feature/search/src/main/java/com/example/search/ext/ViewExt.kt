@@ -12,7 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.search.R
-import com.kotlin.project.data.model.TheMovieDBStatus
+import com.kotlin.project.data.model.status.TheMovieDBStatus
 
 @BindingAdapter("visibleGone")
 fun visibleGone(view: View, show: Boolean) {

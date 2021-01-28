@@ -1,10 +1,10 @@
 package com.kotlin.project.data.model.response
 
-import com.kotlin.project.data.model.BelongsToCollection
-import com.kotlin.project.data.model.Genres
-import com.kotlin.project.data.model.ProductionCompanies
-import com.kotlin.project.data.model.ProductionCountries
-import com.kotlin.project.data.model.SpokenLanguages
+import com.kotlin.project.data.model.detail.BelongsToCollection
+import com.kotlin.project.data.model.detail.Genres
+import com.kotlin.project.data.model.detail.ProductionCompanies
+import com.kotlin.project.data.model.detail.ProductionCountries
+import com.kotlin.project.data.model.detail.SpokenLanguages
 
 data class DetailResponse(
     val adult: Boolean,

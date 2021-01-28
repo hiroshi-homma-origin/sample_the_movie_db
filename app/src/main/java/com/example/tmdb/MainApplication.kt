@@ -11,9 +11,7 @@ class MainApplication : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
         setupDagger()
-        if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        }
+        if (BuildConfig.DEBUG) Timber.plant(DebugTree())
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

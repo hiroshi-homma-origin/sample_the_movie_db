@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.search.databinding.FragmentSearchBinding
 import com.example.search.ui.list.adapter.CustomScrollListener
 import com.example.search.ui.list.adapter.SearchResultsRecyclerViewAdapter
-import com.example.search.databinding.FragmentSearchBinding
 import javax.inject.Inject
 
 class SearchFragment @Inject constructor() : Fragment() {
@@ -41,11 +41,6 @@ class SearchFragment @Inject constructor() : Fragment() {
             setHasFixedSize(true)
             adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
             setCustomScrollListener()
-            postponeEnterTransition()
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.recyclerView.adapter?.notifyDataSetChanged()

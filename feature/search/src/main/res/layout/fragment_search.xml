@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.kotlin.project.data.model.TheMovieDBStatus" />
+        <import type="com.kotlin.project.data.model.status.TheMovieDBStatus" />
 
         <variable
             name="viewModel"

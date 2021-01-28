@@ -1,12 +1,12 @@
 package com.kotlin.project.data.di
 
 import com.kotlin.project.data.api.TheMovieDBApi
-import com.kotlin.project.data.dao.ResultMovieDataDao
-import com.kotlin.project.data.dao.ResultTvDataDao
+import com.kotlin.project.data.dao.MovieDataDao
+import com.kotlin.project.data.dao.TvDataDao
 import com.kotlin.project.data.repository.DetailDataRepository
 import com.kotlin.project.data.repository.DetailDataRepositoryImpl
-import com.kotlin.project.data.repository.ResultMovieDataRepository
-import com.kotlin.project.data.repository.ResultMovieDataRepositoryImpl
+import com.kotlin.project.data.repository.MovieDataRepository
+import com.kotlin.project.data.repository.MovieDataRepositoryImpl
 import com.kotlin.project.data.repository.ResultTvDataRepository
 import com.kotlin.project.data.repository.ResultTvDataRepositoryImpl
 import com.kotlin.project.data.repository.SearchListRepository
@@ -27,12 +27,12 @@ class RepositoryModule {
     }
 
     @Provides
-    fun provideResultMovieDataRepository(dao: ResultMovieDataDao): ResultMovieDataRepository {
-        return ResultMovieDataRepositoryImpl(dao)
+    fun provideResultMovieDataRepository(dao: MovieDataDao): MovieDataRepository {
+        return MovieDataRepositoryImpl(dao)
     }
 
     @Provides
-    fun provideResultTvDataRepository(dao: ResultTvDataDao): ResultTvDataRepository {
+    fun provideResultTvDataRepository(dao: TvDataDao): ResultTvDataRepository {
         return ResultTvDataRepositoryImpl(dao)
     }
 }

@@ -1,4 +1,4 @@
-package com.kotlin.project.data.model
+package com.kotlin.project.data.model.status
 
 sealed class TheMovieDBStatus {
     object Success : TheMovieDBStatus()

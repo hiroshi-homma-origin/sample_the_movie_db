@@ -1,39 +1,37 @@
-package com.kotlin.project.data.model
+package com.kotlin.project.data.model.search
 
-import com.kotlin.project.data.entities.ResultMovieData
+import com.kotlin.project.data.entities.TvData
 
-data class SearchResultsData(
-    val adult: Boolean,
+data class SearchResultsTvData(
     val backdropPath: String?,
+    val firstAirDate: String,
     val genreIds: ArrayList<Int>,
     val id: Int,
+    val name: String,
+    val originCountry: ArrayList<String>,
     val originalLanguage: String,
-    val originalTitle: String,
+    val originalName: String,
     val overview: String,
     val popularity: Float,
     val posterPath: String?,
-    val releaseDate: String,
-    val title: String,
-    val video: Boolean,
     val voteAverage: Float,
     val voteCount: Int
 )
 
-fun SearchResultsData.transform(): ResultMovieData {
-    return ResultMovieData(
+fun SearchResultsTvData.transform(): TvData {
+    return TvData(
         uid = 0,
-        adult = adult,
         backdropPath = backdropPath ?: "",
+        firstAirDate = firstAirDate,
         genreIds = genreIds,
         id = id,
+        name = name,
+        originCountry = originCountry,
         originalLanguage = originalLanguage,
-        originalTitle = originalTitle,
+        originalName = originalName,
         overview = overview,
         popularity = popularity,
         posterPath = posterPath ?: "",
-        releaseDate = releaseDate,
-        title = title,
-        video = video,
         voteAverage = voteAverage,
         voteCount = voteCount
     )

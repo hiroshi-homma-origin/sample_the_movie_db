@@ -3,10 +3,10 @@ package com.kotlin.project.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kotlin.project.data.model.SearchResultsTvData
+import com.kotlin.project.data.model.search.SearchResultsTvData
 
 @Entity
-data class ResultTvData(
+data class TvData(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "backdropPath") val backdropPath: String?,
     @ColumnInfo(name = "firstAirDate") val firstAirDate: String,
@@ -23,7 +23,7 @@ data class ResultTvData(
     @ColumnInfo(name = "voteCount") val voteCount: Int
 )
 
-fun ResultTvData.transform(): SearchResultsTvData {
+fun TvData.transform(): SearchResultsTvData {
     return SearchResultsTvData(
         backdropPath = backdropPath ?: "",
         firstAirDate = firstAirDate,

@@ -1,7 +1,7 @@
-package com.kotlin.project.data.model
+package com.kotlin.project.data.model.result
 
-import com.kotlin.project.data.model.TheMovieDBResult.Failure
-import com.kotlin.project.data.model.TheMovieDBResult.Success
+import com.kotlin.project.data.model.result.TheMovieDBResult.Failure
+import com.kotlin.project.data.model.result.TheMovieDBResult.Success
 
 sealed class TheMovieDBResult<out R> {
 

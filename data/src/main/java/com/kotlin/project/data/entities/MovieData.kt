@@ -3,10 +3,10 @@ package com.kotlin.project.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kotlin.project.data.model.SearchResultsData
+import com.kotlin.project.data.model.search.SearchMovieData
 
 @Entity
-data class ResultMovieData(
+data class MovieData(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "adult") val adult: Boolean,
     @ColumnInfo(name = "backdropPath") val backdropPath: String?,
@@ -24,8 +24,8 @@ data class ResultMovieData(
     @ColumnInfo(name = "voteCount") val voteCount: Int
 )
 
-fun ResultMovieData.transform(): SearchResultsData {
-    return SearchResultsData(
+fun MovieData.transform(): SearchMovieData {
+    return SearchMovieData(
         adult = adult,
         backdropPath = backdropPath ?: "",
         genreIds = genreIds ?: arrayListOf(),

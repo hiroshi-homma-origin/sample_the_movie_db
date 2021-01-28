@@ -1,7 +1,7 @@
 package com.kotlin.project.domain.di
 
 import com.kotlin.project.data.repository.DetailDataRepository
-import com.kotlin.project.data.repository.ResultMovieDataRepository
+import com.kotlin.project.data.repository.MovieDataRepository
 import com.kotlin.project.data.repository.ResultTvDataRepository
 import com.kotlin.project.data.repository.SearchListRepository
 import com.kotlin.project.domain.usecase.DetailDataUseCase
@@ -32,7 +32,7 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideResultMovieDataUseCase(repository: ResultMovieDataRepository): ResultMovieDataUseCase {
+    fun provideResultMovieDataUseCase(repository: MovieDataRepository): ResultMovieDataUseCase {
         return ResultMovieDataUseCaseImpl(repository)
     }
 

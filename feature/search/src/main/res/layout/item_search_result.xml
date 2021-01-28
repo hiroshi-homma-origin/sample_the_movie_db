@@ -9,7 +9,7 @@
 
         <variable
             name="results"
-            type="com.kotlin.project.data.model.SearchResultsData" />
+            type="com.kotlin.project.data.model.search.SearchMovieData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

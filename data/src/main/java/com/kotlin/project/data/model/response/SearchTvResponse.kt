@@ -1,6 +1,6 @@
 package com.kotlin.project.data.model.response
 
-import com.kotlin.project.data.model.SearchResultsTvData
+import com.kotlin.project.data.model.search.SearchResultsTvData
 
 data class SearchTvResponse(
     val page: Int = 0,

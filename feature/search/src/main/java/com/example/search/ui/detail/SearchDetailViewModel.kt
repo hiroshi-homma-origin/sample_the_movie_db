@@ -8,11 +8,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.search.BuildConfig
-import com.kotlin.project.data.model.TheMovieDBResult
-import com.kotlin.project.data.model.TheMovieDBStatus.Failure
-import com.kotlin.project.data.model.TheMovieDBStatus.Success
-import com.kotlin.project.data.model.failureResponse
 import com.kotlin.project.data.model.response.DetailResponse
+import com.kotlin.project.data.model.result.TheMovieDBResult
+import com.kotlin.project.data.model.result.failureResponse
 import com.kotlin.project.domain.usecase.DetailDataUseCase
 import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import kotlinx.coroutines.Dispatchers
