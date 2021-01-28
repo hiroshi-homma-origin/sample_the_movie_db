@@ -1,6 +1,14 @@
 name: TheMovieDB CI
 
-on: [pull_request]
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   danger:
@@ -9,6 +17,8 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       # Gem Cache
       - name: Gem Cache
         uses: actions/cache@v2
