@@ -90,6 +90,7 @@ class SearchViewModel @Inject constructor(
                         _status.postValue(Success)
                     },
                     failure = {
+                        Timber.d("check_data:$it")
                         _status.postValue(Failure)
                         checkRoomData()
                     }

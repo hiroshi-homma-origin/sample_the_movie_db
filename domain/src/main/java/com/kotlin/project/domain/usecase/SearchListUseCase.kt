@@ -1,5 +1,6 @@
 package com.kotlin.project.domain.usecase
 
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.kotlin.project.data.BuildConfig
@@ -33,12 +34,22 @@ class SearchListUseCaseImpl @Inject constructor(
         searchWord: String,
         page: Int?,
         language: String?
-    ): Result<SearchResponse, Failure> = Ok(searchListRepository.searchList(apiKey, searchWord, page, language))
+    ): Result<SearchResponse, Failure> =
+        runCatching { searchListRepository.searchList(apiKey, searchWord, page, language) }
+            .fold(
+                onSuccess = { Ok(it) },
+                onFailure = { return Err(Failure) }
+            )
 
     override suspend fun searchTvList(
         apiKey: String,
         searchWord: String,
         page: Int?,
         language: String?
-    ): Result<SearchTvResponse, Failure> = Ok(searchListRepository.searchTvList(apiKey, searchWord, page, language))
+    ): Result<SearchTvResponse, Failure> =
+        runCatching { searchListRepository.searchTvList(apiKey, searchWord, page, language) }
+            .fold(
+                onSuccess = { Ok(it) },
+                onFailure = { return Err(Failure) }
+            )
 }

@@ -1,6 +1,8 @@
 package com.kotlin.project.domain.usecase
 
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.flatMap
 import com.github.michaelbull.result.Result
 import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.model.failure.Failure
@@ -23,5 +25,10 @@ class DetailDataUseCaseImpl @Inject constructor(
         path: Int,
         apiKey: String,
         language: String?
-    ): Result<DetailResponse, Failure> = Ok(detailDataRepository.detailData(path, apiKey, language))
+    ): Result<DetailResponse, Failure> =
+        runCatching { detailDataRepository.detailData(path, apiKey, language) }
+            .fold(
+                onSuccess = { Ok(it) },
+                onFailure = { return Err(Failure) }
+            )
 }
