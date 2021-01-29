@@ -80,27 +80,23 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
-    // Gson
-    implementation "com.google.code.gson:gson:$gson"
-
     // Glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "com.zlc.glide:webpdecoder:1.6.$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
+    // kotlin result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:$kotlinResult")
+
     // Unit Test
     testImplementation "junit:junit:$junit"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
-    testImplementation "org.assertj:assertj-core:$assertjCore"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin"
     testImplementation "androidx.test:core:$androidxTestCore"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "org.hamcrest:hamcrest-library:$hamcrestVersion"
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation "io.mockk:mockk-android:$mockkVersion"
     testImplementation "androidx.arch.core:core-testing:$core_testing"
-    testImplementation "com.google.truth:truth:$truth"
     // UI Test
     androidTestImplementation "junit:junit:$junit"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunit"

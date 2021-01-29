@@ -7,11 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.search.BuildConfig
 import com.example.search.R.string
+import com.github.michaelbull.result.mapBoth
+import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.entities.transform
-import com.kotlin.project.data.model.result.TheMovieDBResult
-import com.kotlin.project.data.model.result.failureResponse
 import com.kotlin.project.data.model.search.SearchMovieData
 import com.kotlin.project.data.model.search.transform
 import com.kotlin.project.data.model.status.TheMovieDBStatus
@@ -71,32 +70,30 @@ class SearchViewModel @Inject constructor(
         val text = context.getString(string.title_search) + "(" + addPage + " / " + totalPage + ")"
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            when (val r = searchListUseCase.searchList(BuildConfig.APIKEY, key, addPage)) {
-                is TheMovieDBResult.Success -> {
-                    totalPage = r.data.totalPages
-                    totalResults = r.data.totalResults
+            searchListUseCase.searchList(BuildConfig.APIKEY, key, addPage)
+                .mapBoth(
+                    success = {
+                        totalPage = it.totalPages
+                        totalResults = it.totalResults
 
-                    insertMovieData(r.data.results)
+                        insertMovieData(it.results)
 
-                    _currentResultText.postValue(text)
-                    when {
-                        isPullToRefresh || addPage <= 1 -> _list.postValue(r.data.results)
-                        else -> {
-                            val addList = _list.value as MutableList<SearchMovieData>
-                            addList.addAll(r.data.results)
-                            _list.postValue(addList)
+                        _currentResultText.postValue(text)
+                        when {
+                            isPullToRefresh || addPage <= 1 -> _list.postValue(it.results)
+                            else -> {
+                                val addList = _list.value as MutableList<SearchMovieData>
+                                addList.addAll(it.results)
+                                _list.postValue(addList)
+                            }
                         }
-                    }
-                    _status.postValue(Success)
-                }
-                is TheMovieDBResult.Failure -> {
-                    r.failureResponse?.let {
-                        Timber.d("check_error:${it.message}")
+                        _status.postValue(Success)
+                    },
+                    failure = {
                         _status.postValue(Failure)
                         checkRoomData()
                     }
-                }
-            }
+                )
         }
     }
 

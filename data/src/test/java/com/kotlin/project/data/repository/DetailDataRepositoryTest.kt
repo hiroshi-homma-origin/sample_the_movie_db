@@ -53,7 +53,7 @@ class DetailDataRepositoryTest {
     }
 
     @Test
-    fun testGetMyNewsList() = runBlocking {
+    fun testFetchDetailData() = runBlocking {
         val r = DetailDataRepositoryImpl(theMovieDBApi)
             .detailData(11, BuildConfig.APIKEY)
 

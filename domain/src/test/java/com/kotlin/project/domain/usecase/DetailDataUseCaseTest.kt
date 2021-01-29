@@ -1,9 +1,10 @@
 package com.kotlin.project.domain.usecase
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.kotlin.project.data.model.TheMovieDBResult
-import com.kotlin.project.data.model.failureResponse
-import com.kotlin.project.data.model.successResponse
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.mapBoth
+import com.kotlin.project.data.model.failure.Failure
 import com.kotlin.project.testData.TestData
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -40,12 +41,13 @@ class DetailDataUseCaseTest {
         val path = 11
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         coEvery { detailDataUseCase.detailData(any(), any()) } returns
-            TheMovieDBResult.Success(TestData.dummyDetailDataJapanese)
+            Ok(TestData.dummyDetailDataJapanese)
         // act
-        detailDataUseCase.detailData(path, ak).successResponse?.let {
-            println("check_data:$it")
-            assert(it == TestData.dummyDetailDataJapanese)
-        }
+        detailDataUseCase.detailData(path, ak)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 
     @Test
@@ -53,13 +55,12 @@ class DetailDataUseCaseTest {
         // arrange
         val path = 11
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
-        val throwable = Throwable(TestData.errorMessage)
-        coEvery { detailDataUseCase.detailData(any(), any()) } returns
-            TheMovieDBResult.Failure(throwable)
+        coEvery { detailDataUseCase.detailData(any(), any()) } returns Err(Failure)
         // act
-        detailDataUseCase.detailData(path, ak).failureResponse?.let {
-            println("check_data:${it.message}")
-            assert(it.message.equals(TestData.errorMessage))
-        }
+        detailDataUseCase.detailData(path, ak)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 }

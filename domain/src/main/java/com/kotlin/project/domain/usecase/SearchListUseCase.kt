@@ -1,9 +1,11 @@
 package com.kotlin.project.domain.usecase
 
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.kotlin.project.data.BuildConfig
+import com.kotlin.project.data.model.failure.Failure
 import com.kotlin.project.data.model.response.SearchResponse
 import com.kotlin.project.data.model.response.SearchTvResponse
-import com.kotlin.project.data.model.result.TheMovieDBResult
 import com.kotlin.project.data.repository.SearchListRepository
 import javax.inject.Inject
 
@@ -13,14 +15,14 @@ interface SearchListUseCase {
         searchWord: String,
         page: Int? = 1,
         language: String? = BuildConfig.LANGUAGE
-    ): TheMovieDBResult<SearchResponse>
+    ): Result<SearchResponse, Failure>
 
     suspend fun searchTvList(
         apiKey: String,
         searchWord: String,
         page: Int? = 1,
         language: String? = BuildConfig.LANGUAGE
-    ): TheMovieDBResult<SearchTvResponse>
+    ): Result<SearchTvResponse, Failure>
 }
 
 class SearchListUseCaseImpl @Inject constructor(
@@ -31,22 +33,12 @@ class SearchListUseCaseImpl @Inject constructor(
         searchWord: String,
         page: Int?,
         language: String?
-    ): TheMovieDBResult<SearchResponse> =
-        runCatching { searchListRepository.searchList(apiKey, searchWord, page, language) }
-            .fold(
-                onSuccess = { return TheMovieDBResult.Success(it) },
-                onFailure = { return TheMovieDBResult.Failure(Throwable("TheMovieDB error")) }
-            )
+    ): Result<SearchResponse, Failure> = Ok(searchListRepository.searchList(apiKey, searchWord, page, language))
 
     override suspend fun searchTvList(
         apiKey: String,
         searchWord: String,
         page: Int?,
         language: String?
-    ): TheMovieDBResult<SearchTvResponse> =
-        runCatching { searchListRepository.searchTvList(apiKey, searchWord, page, language) }
-            .fold(
-                onSuccess = { return TheMovieDBResult.Success(it) },
-                onFailure = { return TheMovieDBResult.Failure(Throwable("TheMovieDB error")) }
-            )
+    ): Result<SearchTvResponse, Failure> = Ok(searchListRepository.searchTvList(apiKey, searchWord, page, language))
 }

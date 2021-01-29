@@ -26,6 +26,4 @@ android {
 
 dependencies {
     implementation project(":data")
-    // Gson
-    implementation "com.google.code.gson:gson:$gson"
 }

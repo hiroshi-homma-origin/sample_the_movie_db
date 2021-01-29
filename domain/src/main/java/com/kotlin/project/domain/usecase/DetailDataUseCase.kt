@@ -1,8 +1,10 @@
 package com.kotlin.project.domain.usecase
 
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.kotlin.project.data.BuildConfig
+import com.kotlin.project.data.model.failure.Failure
 import com.kotlin.project.data.model.response.DetailResponse
-import com.kotlin.project.data.model.result.TheMovieDBResult
 import com.kotlin.project.data.repository.DetailDataRepository
 import javax.inject.Inject
 
@@ -11,7 +13,7 @@ interface DetailDataUseCase {
         path: Int,
         apiKey: String,
         language: String? = BuildConfig.LANGUAGE
-    ): TheMovieDBResult<DetailResponse>
+    ): Result<DetailResponse, Failure>
 }
 
 class DetailDataUseCaseImpl @Inject constructor(
@@ -21,10 +23,5 @@ class DetailDataUseCaseImpl @Inject constructor(
         path: Int,
         apiKey: String,
         language: String?
-    ): TheMovieDBResult<DetailResponse> =
-        runCatching { detailDataRepository.detailData(path, apiKey, language) }
-            .fold(
-                onSuccess = { return TheMovieDBResult.Success(it) },
-                onFailure = { return TheMovieDBResult.Failure(Throwable("TheMovieDB error")) }
-            )
+    ): Result<DetailResponse, Failure> = Ok(detailDataRepository.detailData(path, apiKey, language))
 }

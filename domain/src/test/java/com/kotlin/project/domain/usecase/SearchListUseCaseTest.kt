@@ -1,9 +1,10 @@
 package com.kotlin.project.domain.usecase
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.kotlin.project.data.model.TheMovieDBResult
-import com.kotlin.project.data.model.failureResponse
-import com.kotlin.project.data.model.successResponse
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.mapBoth
+import com.kotlin.project.data.model.failure.Failure
 import com.kotlin.project.testData.TestData
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -40,12 +41,13 @@ class SearchListUseCaseTest {
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "Star Wars"
         coEvery { searchListUseCase.searchList(any(), any()) } returns
-            TheMovieDBResult.Success(TestData.testSearchResponse)
+            Ok(TestData.testSearchResponse)
         // act
-        searchListUseCase.searchList(ak, word).successResponse?.let {
-            println("check_data:${it.results.size}")
-            assert(it.results.size == TestData.resultsSize)
-        }
+        searchListUseCase.searchList(ak, word)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 
     @Test
@@ -53,14 +55,13 @@ class SearchListUseCaseTest {
         // arrange
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "Star Wars"
-        val throwable = Throwable(TestData.errorMessage)
-        coEvery { searchListUseCase.searchList(any(), any()) } returns
-            TheMovieDBResult.Failure(throwable)
+        coEvery { searchListUseCase.searchList(any(), any()) } returns Err(Failure)
         // act
-        searchListUseCase.searchList(ak, word).failureResponse?.let {
-            println("check_data:${it.message}")
-            assert(it.message.equals(TestData.errorMessage))
-        }
+        searchListUseCase.searchList(ak, word)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 
     @Test
@@ -69,12 +70,12 @@ class SearchListUseCaseTest {
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "鬼滅"
         coEvery { searchListUseCase.searchTvList(any(), any()) } returns
-            TheMovieDBResult.Success(TestData.testSearchResponseForTv)
-        // act
-        searchListUseCase.searchTvList(ak, word).successResponse?.let {
-            println("check_data:${it.results.size}")
-            assert(it.results.size == TestData.resultsSizeForTv)
-        }
+            Ok(TestData.testSearchResponseForTv)
+        searchListUseCase.searchTvList(ak, word)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 
     @Test
@@ -82,13 +83,12 @@ class SearchListUseCaseTest {
         // arrange
         val ak = "5a8b983d0a32c33b16d6db1c658e7e1d"
         val word = "鬼滅"
-        val throwable = Throwable(TestData.errorMessage)
-        coEvery { searchListUseCase.searchTvList(any(), any()) } returns
-            TheMovieDBResult.Failure(throwable)
+        coEvery { searchListUseCase.searchTvList(any(), any()) } returns Err(Failure)
         // act
-        searchListUseCase.searchTvList(ak, word).failureResponse?.let {
-            println("check_data:${it.message}")
-            assert(it.message.equals(TestData.errorMessage))
-        }
+        searchListUseCase.searchTvList(ak, word)
+            .mapBoth(
+                success = { println("success:$it") },
+                failure = { println("failure:${it.message}") }
+            )
     }
 }

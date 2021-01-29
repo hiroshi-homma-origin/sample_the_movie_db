@@ -7,10 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.search.BuildConfig
+import com.github.michaelbull.result.mapBoth
+import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.model.response.DetailResponse
-import com.kotlin.project.data.model.result.TheMovieDBResult
-import com.kotlin.project.data.model.result.failureResponse
 import com.kotlin.project.domain.usecase.DetailDataUseCase
 import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import kotlinx.coroutines.Dispatchers
@@ -37,16 +36,15 @@ class SearchDetailViewModel @Inject constructor(
 
     private fun fetchData(path: Int = 11) {
         viewModelScope.launch(Dispatchers.IO) {
-            when (val r = detailDataUseCase.detailData(path, BuildConfig.APIKEY)) {
-                is TheMovieDBResult.Success -> {
-                    _detailData.postValue(r.data)
-                }
-                is TheMovieDBResult.Failure -> {
-                    r.failureResponse?.let {
+            detailDataUseCase.detailData(path, BuildConfig.APIKEY)
+                .mapBoth(
+                    success = {
+                        _detailData.postValue(it)
+                    },
+                    failure = {
                         Timber.d("check_error:${it.message}")
                     }
-                }
-            }
+                )
         }
     }
 }
