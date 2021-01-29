@@ -16,11 +16,6 @@ class CoreActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_core)
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        binding.navView.setupWithNavController(navController)
-//        setBottomNavigationListener(navController)
         setupBottomNavigationBar()
         setBottomNavigationListener()
     }

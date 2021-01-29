@@ -1,8 +1,6 @@
 package com.kotlin.project.testData
 
 import com.kotlin.project.data.entities.MovieData
-import com.kotlin.project.data.model.SearchMovieData
-import com.kotlin.project.data.model.SearchResultsTvData
 import com.kotlin.project.data.model.detail.BelongsToCollection
 import com.kotlin.project.data.model.detail.Genres
 import com.kotlin.project.data.model.detail.ProductionCompanies
@@ -11,6 +9,8 @@ import com.kotlin.project.data.model.detail.SpokenLanguages
 import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.data.model.response.SearchResponse
 import com.kotlin.project.data.model.response.SearchTvResponse
+import com.kotlin.project.data.model.search.SearchMovieData
+import com.kotlin.project.data.model.search.SearchResultsTvData
 
 object TestData {
 
