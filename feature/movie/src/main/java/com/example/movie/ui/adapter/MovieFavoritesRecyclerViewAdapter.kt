@@ -32,11 +32,8 @@ class MovieFavoritesRecyclerViewAdapter(
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         val list = movieViewModel.list.value ?: return
         holder.binding.results = list[position]
-        val path = list[position].posterPath ?: ""
-        holder.itemView.setOnClickListener {
-            Timber.d("check_data:${list[position].id}")
-        }
         holder.binding.favorite.apply {
+            Timber.d("check_data:${list[position].isFavorite}")
             isSelected = if (list[position].isFavorite) {
                 setImageResource(R.drawable.ic_baseline_check_circle_24)
                 true

@@ -3,7 +3,7 @@ package com.kotlin.project.data.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.kotlin.project.data.model.search.SearchResultsTvData
+import com.kotlin.project.data.model.search.SearchTvData
 
 @Entity
 data class TvData(
@@ -24,8 +24,8 @@ data class TvData(
     @ColumnInfo(name = "isFavorite") val isFavorite: Boolean
 )
 
-fun TvData.transform(): SearchResultsTvData {
-    return SearchResultsTvData(
+fun TvData.transform(): SearchTvData {
+    return SearchTvData(
         backdropPath = backdropPath ?: "",
         firstAirDate = firstAirDate,
         genreIds = genreIds ?: arrayListOf(),
@@ -38,6 +38,7 @@ fun TvData.transform(): SearchResultsTvData {
         popularity = popularity,
         posterPath = posterPath ?: "",
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        isFavorite = isFavorite
     )
 }

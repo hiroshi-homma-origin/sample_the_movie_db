@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kotlin.project.data.entities.MovieData
+import com.kotlin.project.data.model.search.transform
 import com.kotlin.project.data.model.status.TheMovieDBStatus
 import com.kotlin.project.data.model.status.TheMovieDBStatus.Failure
 import com.kotlin.project.data.model.status.TheMovieDBStatus.Loading
@@ -44,10 +45,10 @@ class MovieViewModel @Inject constructor(
     fun checkRoomData(isPullToRefresh: Boolean = false) {
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            _list.postValue(resultMovieDataUseCase.getFavoriteMovie())
-            if(resultMovieDataUseCase.getFavoriteMovie().isNotEmpty()){
+            _list.postValue(resultMovieDataUseCase.getFavoriteMovie().map { it.transform() })
+            if (resultMovieDataUseCase.getFavoriteMovie().isNotEmpty()) {
                 _status.postValue(Success)
-            }else{
+            } else {
                 _status.postValue(Failure)
             }
         }

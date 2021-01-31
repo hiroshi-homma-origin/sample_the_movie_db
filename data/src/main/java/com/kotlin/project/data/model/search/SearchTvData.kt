@@ -2,7 +2,7 @@ package com.kotlin.project.data.model.search
 
 import com.kotlin.project.data.entities.TvData
 
-data class SearchResultsTvData(
+data class SearchTvData(
     val backdropPath: String?,
     val firstAirDate: String,
     val genreIds: ArrayList<Int>,
@@ -15,10 +15,11 @@ data class SearchResultsTvData(
     val popularity: Float,
     val posterPath: String?,
     val voteAverage: Float,
-    val voteCount: Int
+    val voteCount: Int,
+    var isFavorite: Boolean
 )
 
-fun SearchResultsTvData.transform(isFavorite: Boolean = false): TvData {
+fun SearchTvData.transform(): TvData {
     return TvData(
         uid = 0,
         backdropPath = backdropPath ?: "",

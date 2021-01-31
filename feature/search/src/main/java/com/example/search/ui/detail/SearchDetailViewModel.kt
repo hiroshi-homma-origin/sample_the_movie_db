@@ -11,7 +11,6 @@ import com.github.michaelbull.result.mapBoth
 import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.domain.usecase.DetailDataUseCase
-import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber

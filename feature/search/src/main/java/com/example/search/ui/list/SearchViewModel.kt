@@ -48,7 +48,7 @@ class SearchViewModel @Inject constructor(
         checkRoomData()
     }
 
-    fun fetchSearchList(){
+    fun fetchSearchList() {
         fetchSearchData()
     }
 
@@ -61,7 +61,7 @@ class SearchViewModel @Inject constructor(
             searchListUseCase.searchList(BuildConfig.APIKEY, firstSearchWord, fetchCount)
                 .mapBoth(
                     success = {
-                        if(fetchCount <= it.totalPages && getMovieDataSize() < it.totalResults) {
+                        if (fetchCount <= it.totalPages && getMovieDataSize() < it.totalResults) {
                             Timber.d("check_insert:$fetchCount")
                             insertMovieData(it.results)
                         }
@@ -76,7 +76,7 @@ class SearchViewModel @Inject constructor(
     private fun insertMovieData(results: ArrayList<SearchMovieData>) {
         viewModelScope.launch(Dispatchers.IO) {
             results.forEach {
-                resultMovieDataUseCase.insert(it.transform())
+                resultMovieDataUseCase.insert(it)
             }
         }
         fetchCount++
@@ -89,10 +89,10 @@ class SearchViewModel @Inject constructor(
     fun checkRoomData(isPullToRefresh: Boolean = false) {
         _status.postValue(if (isPullToRefresh) ReLoading else Loading)
         viewModelScope.launch(Dispatchers.IO) {
-            _list.postValue(resultMovieDataUseCase.getMovie())
-            if(resultMovieDataUseCase.getMovie().isNotEmpty()){
+            _list.postValue(resultMovieDataUseCase.getMovie().map { it.transform() })
+            if (resultMovieDataUseCase.getMovie().isNotEmpty()) {
                 _status.postValue(Success)
-            }else{
+            } else {
                 _status.postValue(Failure)
             }
         }

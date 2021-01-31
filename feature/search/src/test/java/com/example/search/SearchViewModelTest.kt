@@ -3,8 +3,8 @@ package com.example.search
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.search.ui.list.SearchViewModel
-import com.github.michaelbull.result.Ok
-import com.kotlin.project.data.model.search.SearchMovieData
+import com.kotlin.project.data.entities.MovieData
+import com.kotlin.project.data.entities.transform
 import com.kotlin.project.data.model.status.TheMovieDBStatus
 import com.kotlin.project.domain.usecase.ResultMovieDataUseCase
 import com.kotlin.project.domain.usecase.SearchListUseCase
@@ -13,6 +13,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -41,22 +42,23 @@ class SearchViewModelTest {
     }
 
     @Test
-    fun `Successful acquisition of data_データの取得に成功`() {
+    fun `Successful acquisition of data_データの取得に成功`() = runBlocking {
         // arrange
-        val observerList = TestObserver<List<SearchMovieData>>()
+        val observerList = TestObserver<List<MovieData>>()
         val observerStatus = TestObserver<TheMovieDBStatus>()
         viewModel.list.observeForever(observerList)
         viewModel.status.observeForever(observerStatus)
         coEvery {
-            searchListUseCase.searchList(any(), any())
-        } returns Ok(TestData.testSearchResponse)
+            resultMovieDataUseCase.getMovie()
+        } returns TestData.searchList()
         // act
         viewModel.refresh()
         // assert
         assert(observerStatus.get() == TheMovieDBStatus.ReLoading)
         observerList.await()
-        println(observerList.get())
-        assert(observerList.get() == TestData.testSearchResponse.results)
+        val result = observerList.get()?.map { it.transform() }
+        println("check_data1:$result")
+        assert(result == TestData.searchList())
         assert(observerStatus.get() == TheMovieDBStatus.Success)
     }
 }

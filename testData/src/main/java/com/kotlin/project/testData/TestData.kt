@@ -10,7 +10,7 @@ import com.kotlin.project.data.model.response.DetailResponse
 import com.kotlin.project.data.model.response.SearchResponse
 import com.kotlin.project.data.model.response.SearchTvResponse
 import com.kotlin.project.data.model.search.SearchMovieData
-import com.kotlin.project.data.model.search.SearchResultsTvData
+import com.kotlin.project.data.model.search.SearchTvData
 
 object TestData {
 
@@ -22,7 +22,7 @@ object TestData {
     const val totalResultsForTv = 1
     const val errorMessage = "TestError"
 
-    private fun searchList(): ArrayList<SearchMovieData> {
+    fun searchList(): ArrayList<SearchMovieData> {
         val arrayList: ArrayList<SearchMovieData> = arrayListOf()
         val list = (0..19).map { dummySearchResultsData }
         list.forEach { arrayList.add(it) }
@@ -120,7 +120,7 @@ object TestData {
     val testSearchResponseForTv = SearchTvResponse(
         page = 1,
         results = arrayListOf(
-            SearchResultsTvData(
+            SearchTvData(
                 backdropPath = "/nTvM4mhqNlHIvUkI1gVnW6XP7GG.jpg",
                 firstAirDate = "2019-04-06",
                 genreIds = arrayListOf(16, 18, 10765, 10759),
@@ -154,6 +154,7 @@ object TestData {
         title = "スター・ウォーズ エピソード４／新たなる希望",
         video = false,
         voteAverage = 8.2f,
-        voteCount = 14990
+        voteCount = 14990,
+        isFavorite = false
     )
 }
