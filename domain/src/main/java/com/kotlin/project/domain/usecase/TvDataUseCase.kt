@@ -7,9 +7,10 @@ import javax.inject.Inject
 interface ResultTvDataUseCase {
     suspend fun getTv(): List<TvData>
     suspend fun findId(id: Int): TvData?
-    suspend fun deleteAll()
     suspend fun insert(tvData: TvData)
+    suspend fun updateIsFavorite(id: Int, isUpdate: Boolean)
     suspend fun delete(tvData: TvData)
+    suspend fun deleteAll()
 }
 
 class ResultTvDataUseCaseImpl @Inject constructor(
@@ -17,7 +18,8 @@ class ResultTvDataUseCaseImpl @Inject constructor(
 ) : ResultTvDataUseCase {
     override suspend fun getTv(): List<TvData> = repository.getTv()
     override suspend fun findId(id: Int): TvData? = repository.findId(id)
-    override suspend fun deleteAll() = repository.deleteAll()
     override suspend fun insert(tvData: TvData) = repository.insert(tvData)
+    override suspend fun updateIsFavorite(id: Int, isUpdate: Boolean) = repository.updateIsFavorite(id, isUpdate)
     override suspend fun delete(tvData: TvData) = repository.delete(tvData)
+    override suspend fun deleteAll() = repository.deleteAll()
 }

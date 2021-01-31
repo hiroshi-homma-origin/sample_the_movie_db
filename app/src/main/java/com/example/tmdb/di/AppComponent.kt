@@ -1,7 +1,7 @@
 package com.example.tmdb.di
 
 import android.app.Application
-import com.example.core.di.core.ActivityModule
+import com.example.core.di.core.CoreModule
 import com.example.core.di.core.NavHostModule
 import com.example.core.di.core.ViewModelModule
 import com.example.core.di.movie.MovieModule
@@ -25,7 +25,7 @@ import javax.inject.Singleton
         // feature
         NavHostModule::class,
         ViewModelModule::class,
-        ActivityModule::class,
+        CoreModule::class,
         MovieModule::class,
         SearchModule::class,
         TvModule::class,

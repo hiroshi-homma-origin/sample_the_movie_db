@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.search.R
 import com.example.search.databinding.ItemSearchResultBinding
 import com.example.search.ui.list.SearchFragmentDirections
@@ -46,8 +47,28 @@ class SearchResultsRecyclerViewAdapter(
                 )
             }
         }
+        holder.binding.favorite.apply {
+            isSelected = if (list[position].isFavorite) {
+                setImageResource(R.drawable.ic_baseline_check_circle_24)
+                true
+            } else {
+                setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
+                false
+            }
+            setOnClickListener {
+                isSelected = !isSelected
+                when {
+                    isSelected -> {
+                        setImageResource(R.drawable.ic_baseline_check_circle_24)
+                    }
+                    else -> {
+                        setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
+                    }
+                }
+                spritesViewModel.updateCacheData(list[position].id, isSelected)
+            }
+        }
     }
 
-    class SearchResultsHolder(val binding: ItemSearchResultBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class SearchResultsHolder(val binding: ItemSearchResultBinding) : ViewHolder(binding.root)
 }

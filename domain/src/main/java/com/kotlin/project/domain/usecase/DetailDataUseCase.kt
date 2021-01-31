@@ -2,7 +2,6 @@ package com.kotlin.project.domain.usecase
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.flatMap
 import com.github.michaelbull.result.Result
 import com.kotlin.project.data.BuildConfig
 import com.kotlin.project.data.model.failure.Failure

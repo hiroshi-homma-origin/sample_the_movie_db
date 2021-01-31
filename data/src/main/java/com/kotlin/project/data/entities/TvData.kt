@@ -20,7 +20,8 @@ data class TvData(
     @ColumnInfo(name = "popularity") val popularity: Float,
     @ColumnInfo(name = "posterPath") val posterPath: String?,
     @ColumnInfo(name = "voteAverage") val voteAverage: Float,
-    @ColumnInfo(name = "voteCount") val voteCount: Int
+    @ColumnInfo(name = "voteCount") val voteCount: Int,
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean
 )
 
 fun TvData.transform(): SearchResultsTvData {

@@ -7,10 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.search.R.string
 import com.github.michaelbull.result.mapBoth
 import com.kotlin.project.data.BuildConfig
-import com.kotlin.project.data.entities.transform
+import com.kotlin.project.data.entities.MovieData
 import com.kotlin.project.data.model.search.SearchMovieData
 import com.kotlin.project.data.model.search.transform
 import com.kotlin.project.data.model.status.TheMovieDBStatus
@@ -32,10 +31,7 @@ class SearchViewModel @Inject constructor(
 ) : AndroidViewModel(application), LifecycleObserver {
 
     // member variables
-    private val context = getApplication<Application>().applicationContext
-    var currentPage = 1
-    var totalPage = 1
-    var totalResults = 1
+    var fetchCount = 1
 
     // status
     private val _status = MutableLiveData<TheMovieDBStatus>()
@@ -45,78 +41,66 @@ class SearchViewModel @Inject constructor(
     private val _currentResultText = MutableLiveData<String>()
     val currentResultText: LiveData<String> = _currentResultText
 
-    private val _list = MediatorLiveData<List<SearchMovieData>>()
-    val list: LiveData<List<SearchMovieData>> = _list
+    private val _list = MediatorLiveData<List<MovieData>>()
+    val list: LiveData<List<MovieData>> = _list
 
     init {
-        fetchData()
+        checkRoomData()
+    }
+
+    fun fetchSearchList(){
+        fetchSearchData()
     }
 
     fun refresh() {
-        currentPage = 1
-        fetchData(isPullToRefresh = true)
+        checkRoomData(true)
     }
 
-    fun addPage(addPage: Int) {
-        currentPage = addPage
-        fetchData(addPage = addPage)
-    }
-
-    private fun fetchData(
-        isPullToRefresh: Boolean = false,
-        addPage: Int = 1,
-        key: String = "Star Wars"
-    ) {
-        val text = context.getString(string.title_search) + "(" + addPage + " / " + totalPage + ")"
-        _status.postValue(if (isPullToRefresh) ReLoading else Loading)
+    private fun fetchSearchData(firstSearchWord: String = "Star Wars") {
         viewModelScope.launch(Dispatchers.IO) {
-            searchListUseCase.searchList(BuildConfig.APIKEY, key, addPage)
+            searchListUseCase.searchList(BuildConfig.APIKEY, firstSearchWord, fetchCount)
                 .mapBoth(
                     success = {
-                        totalPage = it.totalPages
-                        totalResults = it.totalResults
-
-                        insertMovieData(it.results)
-
-                        _currentResultText.postValue(text)
-                        when {
-                            isPullToRefresh || addPage <= 1 -> _list.postValue(it.results)
-                            else -> {
-                                val addList = _list.value as MutableList<SearchMovieData>
-                                addList.addAll(it.results)
-                                _list.postValue(addList)
-                            }
+                        if(fetchCount <= it.totalPages && getMovieDataSize() < it.totalResults) {
+                            Timber.d("check_insert:$fetchCount")
+                            insertMovieData(it.results)
                         }
-                        _status.postValue(Success)
                     },
                     failure = {
-                        Timber.d("check_data:$it")
-                        _status.postValue(Failure)
-                        checkRoomData()
+                        Timber.d("check_data2:$it")
                     }
                 )
         }
     }
 
-    private suspend fun getMovieDataSize() = resultMovieDataUseCase.getMovie().size
-
     private fun insertMovieData(results: ArrayList<SearchMovieData>) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (resultMovieDataUseCase.getMovie().size < totalResults) {
-                results.forEach {
-                    resultMovieDataUseCase.insert(it.transform())
-                }
+            results.forEach {
+                resultMovieDataUseCase.insert(it.transform())
+            }
+        }
+        fetchCount++
+        fetchSearchData()
+        checkRoomData()
+    }
+
+    private suspend fun getMovieDataSize() = resultMovieDataUseCase.getMovie().size
+
+    fun checkRoomData(isPullToRefresh: Boolean = false) {
+        _status.postValue(if (isPullToRefresh) ReLoading else Loading)
+        viewModelScope.launch(Dispatchers.IO) {
+            _list.postValue(resultMovieDataUseCase.getMovie())
+            if(resultMovieDataUseCase.getMovie().isNotEmpty()){
+                _status.postValue(Success)
+            }else{
+                _status.postValue(Failure)
             }
         }
     }
 
-    private fun checkRoomData() {
+    fun updateCacheData(id: Int, isSelected: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            Timber.d("check_data1:${getMovieDataSize()}")
-            if (resultMovieDataUseCase.getMovie().isNotEmpty()) {
-                val list = resultMovieDataUseCase.getMovie().map { it.transform() }
-                _list.postValue(list)
-            }
+            resultMovieDataUseCase.updateIsFavorite(id, isSelected)
         }
     }
 }

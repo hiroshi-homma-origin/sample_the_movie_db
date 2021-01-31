@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,7 @@ class SearchFragment @Inject constructor() : Fragment() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val searchViewModel: SearchViewModel by viewModels { factory }
+    private val searchViewModel: SearchViewModel by activityViewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,15 +65,9 @@ class SearchFragment @Inject constructor() : Fragment() {
         binding.recyclerView.apply {
             clearOnScrollListeners()
             addOnScrollListener(
-                object : CustomScrollListener(
-                    layoutManager as LinearLayoutManager,
-                    isRefresh,
-                    searchViewModel.currentPage
-                ) {
+                object : CustomScrollListener(layoutManager as LinearLayoutManager) {
                     override fun onLoadMore(currentPage: Int) {
-                        if (currentPage <= searchViewModel.totalPage) {
-                            searchViewModel.addPage(currentPage)
-                        }
+                        searchViewModel.checkRoomData()
                     }
                 }
             )

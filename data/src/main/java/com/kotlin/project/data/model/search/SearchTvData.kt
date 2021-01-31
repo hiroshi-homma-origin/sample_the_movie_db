@@ -18,7 +18,7 @@ data class SearchResultsTvData(
     val voteCount: Int
 )
 
-fun SearchResultsTvData.transform(): TvData {
+fun SearchResultsTvData.transform(isFavorite: Boolean = false): TvData {
     return TvData(
         uid = 0,
         backdropPath = backdropPath ?: "",
@@ -33,6 +33,7 @@ fun SearchResultsTvData.transform(): TvData {
         popularity = popularity,
         posterPath = posterPath ?: "",
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        isFavorite = isFavorite
     )
 }

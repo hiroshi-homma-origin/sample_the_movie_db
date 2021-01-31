@@ -78,7 +78,7 @@
             android:ellipsize="end"
             android:text="@{detailData.overview}"
             android:textSize="@dimen/text_size_small"
-            app:layout_constraintBottom_toTopOf="@id/bookmark"
+            app:layout_constraintBottom_toTopOf="@id/favorite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/main_image"
@@ -87,7 +87,7 @@
             tools:text="@string/testDescription"/>
 
         <ImageView
-            android:id="@+id/bookmark"
+            android:id="@+id/favorite"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="@dimen/margin_12dp"

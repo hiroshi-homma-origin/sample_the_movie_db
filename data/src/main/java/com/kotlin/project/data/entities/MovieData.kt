@@ -21,7 +21,8 @@ data class MovieData(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "video") val video: Boolean,
     @ColumnInfo(name = "voteAverage") val voteAverage: Float,
-    @ColumnInfo(name = "voteCount") val voteCount: Int
+    @ColumnInfo(name = "voteCount") val voteCount: Int,
+    @ColumnInfo(name = "isFavorite") var isFavorite: Boolean
 )
 
 fun MovieData.transform(): SearchMovieData {

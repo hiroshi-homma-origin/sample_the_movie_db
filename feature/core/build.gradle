@@ -62,6 +62,9 @@ dependencies {
     implementation "com.zlc.glide:webpdecoder:1.6.$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
+    // kotlin result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:$kotlinResult")
+
     // Unit Test
     testImplementation "junit:junit:$junit"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"

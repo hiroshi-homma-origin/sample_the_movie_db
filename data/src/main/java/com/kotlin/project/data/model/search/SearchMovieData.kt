@@ -19,7 +19,7 @@ data class SearchMovieData(
     val voteCount: Int
 )
 
-fun SearchMovieData.transform(): MovieData {
+fun SearchMovieData.transform(isFavorite: Boolean = false): MovieData {
     return MovieData(
         uid = 0,
         adult = adult,
@@ -35,6 +35,7 @@ fun SearchMovieData.transform(): MovieData {
         title = title,
         video = video,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        isFavorite = isFavorite
     )
 }

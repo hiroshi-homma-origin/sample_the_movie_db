@@ -9,7 +9,7 @@
 
         <variable
             name="results"
-            type="com.kotlin.project.data.model.search.SearchMovieData" />
+            type="com.kotlin.project.data.entities.MovieData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,16 +70,20 @@
             tools:text="2021-01-01" />
 
         <ImageView
-            android:id="@+id/bookmark"
+            android:id="@+id/favorite"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="@dimen/margin_12dp"
+            android:duplicateParentState="true"
+            android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_baseline_check_circle_outline_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/releaseDate"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/main_image"
             app:layout_constraintTop_toBottomOf="@+id/movie_name" />
+
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"

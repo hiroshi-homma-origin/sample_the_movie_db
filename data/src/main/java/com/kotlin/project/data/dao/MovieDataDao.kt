@@ -15,6 +15,9 @@ interface MovieDataDao {
     @Query("SELECT * FROM movieData WHERE id = :id")
     fun findId(id: Int): MovieData?
 
+    @Query("UPDATE movieData SET isFavorite = :isUpdate WHERE id = :id")
+    fun updateIsFavorite(id: Int, isUpdate: Boolean)
+
     @Query("DELETE FROM movieData")
     fun deleteAll()
 
