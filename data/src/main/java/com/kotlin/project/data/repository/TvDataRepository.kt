@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface ResultTvDataRepository {
     suspend fun getTv(): List<TvData>
+    suspend fun getFavoriteTv(): List<TvData>
     suspend fun findId(id: Int): TvData?
     suspend fun insert(tvData: TvData)
     suspend fun updateIsFavorite(id: Int, isUpdate: Boolean)
@@ -19,6 +20,7 @@ class ResultTvDataRepositoryImpl @Inject constructor(
 ) : ResultTvDataRepository {
 
     override suspend fun getTv(): List<TvData> = dao.getTv()
+    override suspend fun getFavoriteTv(): List<TvData> = dao.getFavoriteTv()
     override suspend fun findId(id: Int): TvData? = dao.findId(id)
     override suspend fun insert(tvData: TvData) = dao.insert(tvData)
     override suspend fun updateIsFavorite(id: Int, isUpdate: Boolean) = dao.updateIsFavorite(id, isUpdate)

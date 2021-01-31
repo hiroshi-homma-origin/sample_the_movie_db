@@ -65,7 +65,7 @@ class SearchResultsRecyclerViewAdapter(
                         setImageResource(R.drawable.ic_baseline_check_circle_outline_24)
                     }
                 }
-                spritesViewModel.updateCacheData(list[position].id, isSelected)
+                spritesViewModel.updateIsFavorite(list[position].id, isSelected)
             }
         }
     }

@@ -12,6 +12,9 @@ interface MovieDataDao {
     @Query("SELECT * FROM movieData")
     fun getMovie(): List<MovieData>
 
+    @Query("SELECT * FROM movieData WHERE isFavorite = 1")
+    fun getFavoriteMovie(): List<MovieData>
+
     @Query("SELECT * FROM movieData WHERE id = :id")
     fun findId(id: Int): MovieData?
 

@@ -1,9 +1,9 @@
-include ':feature:core'
+include ':ext'
 include ':feature:search'
 include ':feature:movie'
-include ':feature:tv'
-include ':app'
+include ':feature:core'
 include ':data'
 include ':domain'
 include ':testData'
+include ':app'
 rootProject.name = "TheMovieDB"

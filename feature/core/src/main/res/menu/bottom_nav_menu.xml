@@ -8,8 +8,4 @@
         android:id="@+id/navigation_movie"
         android:icon="@drawable/ic_baseline_movie_24"
         android:title="@string/title_movie" />
-    <item
-        android:id="@+id/navigation_tv"
-        android:icon="@drawable/ic_baseline_tv_24"
-        android:title="@string/title_tv" />
 </menu>

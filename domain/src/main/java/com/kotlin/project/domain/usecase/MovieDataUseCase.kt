@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 interface ResultMovieDataUseCase {
     suspend fun getMovie(): List<MovieData>
+    suspend fun getFavoriteMovie(): List<MovieData>
     suspend fun findId(id: Int): MovieData?
     suspend fun insert(movieData: MovieData)
     suspend fun updateIsFavorite(id: Int, isUpdate: Boolean)
@@ -18,6 +19,7 @@ class ResultMovieDataUseCaseImpl @Inject constructor(
     private val repository: MovieDataRepository
 ) : ResultMovieDataUseCase {
     override suspend fun getMovie(): List<MovieData> = repository.getMovie()
+    override suspend fun getFavoriteMovie(): List<MovieData> = repository.getFavoriteMovie()
     override suspend fun findId(id: Int): MovieData? = repository.findId(id)
     override suspend fun insert(movieData: MovieData) = repository.insert(movieData)
     override suspend fun updateIsFavorite(id: Int, isUpdate: Boolean) = repository.updateIsFavorite(id, isUpdate)

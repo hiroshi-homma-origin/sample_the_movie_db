@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 class SearchDetailViewModel @Inject constructor(
     application: Application,
-    private val detailDataUseCase: DetailDataUseCase,
-    private val resultMovieDataUseCase: ResultMovieDataUseCase
+    private val detailDataUseCase: DetailDataUseCase
 ) : AndroidViewModel(application), LifecycleObserver {
 
     // data

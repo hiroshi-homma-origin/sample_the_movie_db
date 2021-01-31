@@ -42,9 +42,10 @@ android {
 }
 
 dependencies {
+    implementation project(':domain')
+    implementation project(':data')
     implementation project(':feature:search')
     implementation project(':feature:movie')
-    implementation project(':feature:tv')
 
     // android Support Library
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"

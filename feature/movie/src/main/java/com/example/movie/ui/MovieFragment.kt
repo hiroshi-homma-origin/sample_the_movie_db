@@ -1,4 +1,4 @@
-package com.example.search.ui.list
+package com.example.movie.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,32 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.search.databinding.FragmentSearchBinding
-import com.example.search.ui.list.adapter.CustomScrollListener
-import com.example.search.ui.list.adapter.SearchResultsRecyclerViewAdapter
+import com.example.movie.databinding.FragmentMovieBinding
+import com.example.movie.ui.adapter.CustomScrollListener
+import com.example.movie.ui.adapter.MovieFavoritesRecyclerViewAdapter
 import javax.inject.Inject
 
-class SearchFragment @Inject constructor() : Fragment() {
+class MovieFragment @Inject constructor() : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private lateinit var binding: FragmentMovieBinding
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
-    private val searchViewModel: SearchViewModel by activityViewModels { factory }
+    private val movieViewModel: MovieViewModel by activityViewModels { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchBinding.inflate(inflater, container, false).apply {
-            viewModel = searchViewModel
+        binding = FragmentMovieBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = movieViewModel
             lifecycleOwner = viewLifecycleOwner
         }
-        lifecycle.addObserver(searchViewModel)
+        lifecycle.addObserver(movieViewModel)
         observe()
         return binding.root
     }
@@ -40,13 +40,13 @@ class SearchFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.apply {
             setHasFixedSize(true)
-            adapter = SearchResultsRecyclerViewAdapter(searchViewModel)
+            adapter = MovieFavoritesRecyclerViewAdapter(movieViewModel)
             setCustomScrollListener()
         }
         binding.swipeRefresh.setOnRefreshListener {
             binding.recyclerView.adapter?.notifyDataSetChanged()
             setCustomScrollListener(true)
-            searchViewModel.refresh()
+            movieViewModel.refresh()
         }
         postponeEnterTransition()
         view.viewTreeObserver.addOnPreDrawListener {
@@ -56,7 +56,7 @@ class SearchFragment @Inject constructor() : Fragment() {
     }
 
     private fun observe() {
-        searchViewModel.list.observe(viewLifecycleOwner) {
+        movieViewModel.list.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter?.notifyDataSetChanged()
         }
     }
@@ -67,7 +67,7 @@ class SearchFragment @Inject constructor() : Fragment() {
             addOnScrollListener(
                 object : CustomScrollListener(layoutManager as LinearLayoutManager) {
                     override fun onLoadMore(currentPage: Int) {
-                        searchViewModel.checkRoomData()
+                        movieViewModel.checkRoomData()
                     }
                 }
             )

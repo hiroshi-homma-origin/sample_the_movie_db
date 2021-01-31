@@ -25,12 +25,14 @@ android {
             debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "IMGURL", "\"https://image.tmdb.org/t/p/w500/\""
             buildConfigField "String", "APIKEY", "\"5a8b983d0a32c33b16d6db1c658e7e1d\""
         }
         release {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "IMGURL", "\"https://image.tmdb.org/t/p/w500/\""
             buildConfigField "String", "APIKEY", "\"5a8b983d0a32c33b16d6db1c658e7e1d\""
         }
     }
@@ -52,6 +54,7 @@ android {
 dependencies {
     implementation project(':domain')
     implementation project(':data')
+    implementation project(':ext')
     testImplementation project(':testData')
 
     // android Support Library
@@ -77,6 +80,14 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.zlc.glide:webpdecoder:1.6.$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // kotlin result
+    implementation("com.michael-bull.kotlin-result:kotlin-result:$kotlinResult")
 
     // Unit Test
     testImplementation "junit:junit:$junit"

@@ -42,15 +42,6 @@
                     tools:text="@string/title_search" />
             </androidx.appcompat.widget.Toolbar>
 
-            <TextView
-                android:id="@+id/result_page_count"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_8dp"
-                android:text="@{viewModel.currentResultText}"
-                android:textSize="@dimen/text_size_x_large"
-                tools:text="@string/title_search" />
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

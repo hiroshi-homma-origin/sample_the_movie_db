@@ -6,7 +6,6 @@ import com.example.core.di.core.NavHostModule
 import com.example.core.di.core.ViewModelModule
 import com.example.core.di.movie.MovieModule
 import com.example.core.di.search.SearchModule
-import com.example.core.di.tv.TvModule
 import com.example.tmdb.MainApplication
 import com.kotlin.project.data.di.NetworkModule
 import com.kotlin.project.data.di.RepositoryModule
@@ -22,13 +21,14 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
+        // core
+        CoreModule::class,
         // feature
         NavHostModule::class,
         ViewModelModule::class,
         CoreModule::class,
-        MovieModule::class,
         SearchModule::class,
-        TvModule::class,
+        MovieModule::class,
         // domain
         UseCaseModule::class,
         // data

@@ -3,4 +3,20 @@
     <string name="title_search">search</string>
     <string name="title_movie">movie</string>
     <string name="title_tv">TV</string>
+    <string name="movieImage">TODO</string>
+
+    <string name="testTitle">TestTestTestTest</string>
+    <string name="testDescription">
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+        TestTestTestTestTestTestTestTestTestTest
+    </string>
 </resources>

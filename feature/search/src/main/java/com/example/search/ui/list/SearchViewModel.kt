@@ -98,7 +98,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun updateCacheData(id: Int, isSelected: Boolean) {
+    fun updateIsFavorite(id: Int, isSelected: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             resultMovieDataUseCase.updateIsFavorite(id, isSelected)
         }

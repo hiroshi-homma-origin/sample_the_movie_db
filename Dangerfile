@@ -72,4 +72,4 @@ if failure_or_error_count == 0
   message("All tests have passed :100:")
 end
 
-lgtm.check_lgtm
+# lgtm.check_lgtm

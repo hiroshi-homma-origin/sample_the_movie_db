@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.kotlin.project.data.entities.MovieData
 import com.kotlin.project.data.entities.TvData
 
 @Dao
@@ -11,6 +12,9 @@ interface TvDataDao {
 
     @Query("SELECT * FROM tvData")
     fun getTv(): List<TvData>
+    
+    @Query("SELECT * FROM TvData WHERE isFavorite = 1")
+    fun getFavoriteTv(): List<TvData>
 
     @Query("SELECT * FROM tvData WHERE id = :id")
     fun findId(id: Int): TvData?

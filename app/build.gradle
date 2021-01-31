@@ -43,15 +43,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':domain')
-    implementation project(':data')
     implementation project(':feature:core')
     implementation project(':feature:search')
     implementation project(':feature:movie')
-    implementation project(':feature:tv')
-    testImplementation project(':testData')
+    implementation project(':data')
+    implementation project(':domain')
 
     // android Support Library
+    implementation "androidx.core:core-ktx:$core_ktx"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeRefreshLayout"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation"
 
@@ -65,6 +65,11 @@ dependencies {
     implementation "androidx.room:room-runtime:$room"
     kapt "androidx.room:room-compiler:$room"
     implementation "androidx.room:room-ktx:$room"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation "com.zlc.glide:webpdecoder:1.6.$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Unit Test
     testImplementation "junit:junit:$junit"
