@@ -43,7 +43,8 @@ object TestData {
         title = "スター・ウォーズ エピソード４／新たなる希望",
         video = false,
         voteAverage = 8.2f,
-        voteCount = 14990
+        voteCount = 14990,
+        isFavorite = false
     )
 
     val dummyDetailDataJapanese = DetailResponse(
@@ -133,7 +134,8 @@ object TestData {
                 popularity = 35.853f,
                 posterPath = "/7Uj6vqmznWQ3w3hpQ1eIY9mMyMw.jpg",
                 voteAverage = 8.9f,
-                voteCount = 1835
+                voteCount = 1835,
+                isFavorite = false
             )
         ),
         totalPages = 1, totalResults = 1
